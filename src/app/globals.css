@@ -1,0 +1,37 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cursor-color: #007acc;
+}
+
+.dark {
+  --cursor-color: #00ff95;
+}
+
+body {
+  cursor: none;
+}
+
+@layer base {
+  body {
+    @apply bg-light-bg dark:bg-dark-bg text-gray-900 dark:text-gray-100;
+  }
+}
+
+@layer components {
+  .custom-cursor {
+    @apply fixed pointer-events-none z-50 w-6 h-6 rounded-full mix-blend-difference;
+    background-color: var(--cursor-color);
+    transition: width 0.2s, height 0.2s, transform 0.1s;
+  }
+
+  .custom-cursor.hover {
+    @apply w-12 h-12;
+  }
+
+  .social-icon {
+    @apply p-2 rounded-lg transition-all duration-300 hover:scale-110;
+  }
+}
