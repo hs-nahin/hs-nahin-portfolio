@@ -2,30 +2,32 @@
 
 import { useEffect, useState } from "react"
 
+interface Particle {
+  id: number
+  x: number
+  y: number
+  vx: number
+  vy: number
+  color: string
+  size: number
+}
+
 interface ConfettiProps {
   trigger: boolean
   onComplete?: () => void
 }
 
 export function Confetti({ trigger, onComplete }: ConfettiProps) {
-  const [particles, setParticles] = useState<Array<{
-    id: number
-    x: number
-    y: number
-    vx: number
-    vy: number
-    color: string
-    size: number
-  }>>([])
+  const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
     if (!trigger) return
 
     const colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#ec4899']
-    const newParticles = Array.from({ length: 50 }, (_, i) => ({
+    const newParticles: Particle[] = Array.from({ length: 50 }, (_, i) => ({
       id: i,
-      x: window.innerWidth / 2,
-      y: window.innerHeight / 2,
+      x: typeof window !== 'undefined' ? window.innerWidth / 2 : 400,
+      y: typeof window !== 'undefined' ? window.innerHeight / 2 : 300,
       vx: (Math.random() - 0.5) * 20,
       vy: (Math.random() - 0.5) * 20 - 10,
       color: colors[Math.floor(Math.random() * colors.length)],

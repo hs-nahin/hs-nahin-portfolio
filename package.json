@@ -22,7 +22,8 @@
     "tailwind-merge": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
-    "react-icons": "^4.12.0"
+    "next-themes": "^0.2.1",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "typescript": "^5.0.0",

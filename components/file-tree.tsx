@@ -4,6 +4,12 @@ import { useState } from 'react'
 import { ChevronDown, ChevronRight, Folder, FolderOpen, FileText } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
+interface FileItem {
+  name: string
+  type: 'file' | 'folder'
+  children?: FileItem[]
+}
+
 interface FileTreeProps {
   activeFile: string
   onFileSelect: (file: string) => void
@@ -22,7 +28,7 @@ export function FileTree({ activeFile, onFileSelect }: FileTreeProps) {
     setExpandedFolders(newExpanded)
   }
 
-  const fileStructure = [
+  const fileStructure: FileItem[] = [
     {
       name: 'portfolio',
       type: 'folder',
@@ -42,7 +48,7 @@ export function FileTree({ activeFile, onFileSelect }: FileTreeProps) {
     }
   ]
 
-  const renderFileTree = (items: any[], level = 0) => {
+  const renderFileTree = (items: FileItem[], level = 0): JSX.Element[] => {
     return items.map((item) => {
       const isExpanded = expandedFolders.has(item.name)
       const isActive = activeFile === item.name

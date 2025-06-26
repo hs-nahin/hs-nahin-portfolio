@@ -5,6 +5,23 @@ import { ChevronDown, ChevronRight } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/lib/utils'
 
+interface Skill {
+  name: string
+  icon: string
+  color: string
+}
+
+interface Subcategory {
+  title: string
+  skills: Skill[]
+}
+
+interface SkillCategory {
+  title: string
+  subcategories?: Record<string, Subcategory>
+  skills?: Skill[]
+}
+
 export function SkillsContent() {
   const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set(['frontend', 'tools']))
 
@@ -18,7 +35,7 @@ export function SkillsContent() {
     setExpandedCategories(newExpanded)
   }
 
-  const skills = {
+  const skills: Record<string, SkillCategory> = {
     frontend: {
       title: 'Frontend',
       subcategories: {
@@ -57,7 +74,7 @@ export function SkillsContent() {
     }
   }
 
-  const SkillCard = ({ skill }: { skill: any }) => (
+  const SkillCard = ({ skill }: { skill: Skill }) => (
     <Card className="group relative overflow-hidden border-blue-500/20 bg-gray-900/50 hover:bg-gray-800/50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-500/20 shine-border">
       <CardContent className="p-4 text-center">
         <div className={cn(
@@ -97,7 +114,7 @@ export function SkillsContent() {
             </CardTitle>
           </CardHeader>
           
-          {expandedCategories.has('frontend') && (
+          {expandedCategories.has('frontend') && skills.frontend.subcategories && (
             <CardContent className="space-y-6">
               {Object.entries(skills.frontend.subcategories).map(([key, subcategory]) => (
                 <div key={key}>
@@ -127,7 +144,7 @@ export function SkillsContent() {
             </CardTitle>
           </CardHeader>
           
-          {expandedCategories.has('tools') && (
+          {expandedCategories.has('tools') && skills.tools.skills && (
             <CardContent>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {skills.tools.skills.map((skill) => (
