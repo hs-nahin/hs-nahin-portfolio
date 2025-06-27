@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { AboutContent } from '@/components/content/about-content'
-import { SkillsContent } from '@/components/content/skills-content'
-import { ProjectContent } from '@/components/content/project-content'
-import { ContactContent } from '@/components/content/contact-content'
+import { AboutContent } from './content/about-content'
+import { SkillsContent } from './content/skills-content'
+import { ProjectContent } from './content/project-content'
+import { ContactContent } from './content/contact-content'
 
 interface FileContentProps {
   selectedFile: string
@@ -29,12 +29,7 @@ export function FileContent({ selectedFile }: FileContentProps) {
 
   return (
     <div className="h-full overflow-auto">
-      <div className="bg-gray-800 dark:bg-gray-900 px-4 py-2 border-b border-gray-700 dark:border-gray-800">
-        <span className="text-gray-300 text-sm font-mono">{selectedFile}</span>
-      </div>
-      <div className="p-6 text-gray-100">
-        {renderContent()}
-      </div>
+      {renderContent()}
     </div>
   )
 }

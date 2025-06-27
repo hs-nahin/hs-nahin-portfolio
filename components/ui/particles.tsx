@@ -1,90 +1,68 @@
-"use client"
+'use client'
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useState } from 'react'
 
-interface ParticlesProps {
-  className?: string
-  quantity?: number
+interface Particle {
+  id: number
+  x: number
+  y: number
+  size: number
+  speedX: number
+  speedY: number
+  opacity: number
 }
 
-export function Particles({ className = '', quantity = 50 }: ParticlesProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+export function Particles() {
+  const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    let animationFrameId: number
-
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
-
-    const particles: Array<{
-      x: number
-      y: number
-      vx: number
-      vy: number
-      size: number
-      opacity: number
-    }> = []
-
     const createParticles = () => {
-      particles.length = 0
-      for (let i = 0; i < quantity; i++) {
-        particles.push({
-          x: Math.random() * canvas.width,
-          y: Math.random() * canvas.height,
-          vx: (Math.random() - 0.5) * 0.5,
-          vy: (Math.random() - 0.5) * 0.5,
-          size: Math.random() * 2 + 1,
-          opacity: Math.random() * 0.5 + 0.2,
+      const newParticles: Particle[] = []
+      for (let i = 0; i < 50; i++) {
+        newParticles.push({
+          id: i,
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          size: Math.random() * 3 + 1,
+          speedX: (Math.random() - 0.5) * 0.5,
+          speedY: (Math.random() - 0.5) * 0.5,
+          opacity: Math.random() * 0.5 + 0.1,
         })
       }
+      setParticles(newParticles)
     }
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-
-      particles.forEach((particle) => {
-        particle.x += particle.vx
-        particle.y += particle.vy
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
-
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(59, 130, 246, ${particle.opacity})`
-        ctx.fill()
-      })
-
-      animationFrameId = requestAnimationFrame(animate)
-    }
-
-    resizeCanvas()
     createParticles()
-    animate()
 
-    window.addEventListener('resize', () => {
-      resizeCanvas()
-      createParticles()
-    })
-
-    return () => {
-      cancelAnimationFrame(animationFrameId)
-      window.removeEventListener('resize', resizeCanvas)
+    const animateParticles = () => {
+      setParticles(prev => prev.map(particle => ({
+        ...particle,
+        x: particle.x + particle.speedX,
+        y: particle.y + particle.speedY,
+        x: particle.x > window.innerWidth ? 0 : particle.x < 0 ? window.innerWidth : particle.x,
+        y: particle.y > window.innerHeight ? 0 : particle.y < 0 ? window.innerHeight : particle.y,
+      })))
     }
-  }, [quantity])
+
+    const interval = setInterval(animateParticles, 50)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
-    <canvas
-      ref={canvasRef}
-      className={`pointer-events-none ${className}`}
-    />
+    <div className="particles-bg">
+      {particles.map(particle => (
+        <div
+          key={particle.id}
+          className="absolute rounded-full bg-primary/20"
+          style={{
+            left: `${particle.x}px`,
+            top: `${particle.y}px`,
+            width: `${particle.size}px`,
+            height: `${particle.size}px`,
+            opacity: particle.opacity,
+          }}
+        />
+      ))}
+    </div>
   )
 }

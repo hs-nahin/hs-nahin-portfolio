@@ -1,65 +1,70 @@
-"use client"
+'use client'
 
-import { ChevronDown, ChevronRight, File, Folder, FolderOpen } from 'lucide-react'
 import { useState } from 'react'
+import { ChevronDown, ChevronRight, File, Folder, FolderOpen } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 interface FileTreeProps {
   selectedFile: string
   onFileSelect: (file: string) => void
 }
 
-export function FileTree({ selectedFile, onFileSelect }: FileTreeProps) {
-  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(['projects']))
+const fileStructure = [
+  { name: 'about.md', type: 'file', icon: '📄' },
+  { name: 'skills.js', type: 'file', icon: '⚡' },
+  {
+    name: 'projects',
+    type: 'folder',
+    icon: '📁',
+    children: [
+      { name: 'CodeLink.jsx', type: 'file', icon: '⚛️' },
+      { name: 'CareerHive.jsx', type: 'file', icon: '⚛️' },
+    ]
+  },
+  { name: 'contact.tsx', type: 'file', icon: '📧' },
+]
 
-  const toggleFolder = (folder: string) => {
-    const newExpanded = new Set(expandedFolders)
-    if (newExpanded.has(folder)) {
-      newExpanded.delete(folder)
-    } else {
-      newExpanded.add(folder)
-    }
-    setExpandedFolders(newExpanded)
+export function FileTree({ selectedFile, onFileSelect }: FileTreeProps) {
+  const [expandedFolders, setExpandedFolders] = useState<string[]>(['projects'])
+
+  const toggleFolder = (folderName: string) => {
+    setExpandedFolders(prev =>
+      prev.includes(folderName)
+        ? prev.filter(name => name !== folderName)
+        : [...prev, folderName]
+    )
   }
 
-  const files = [
-    { name: 'about.md', type: 'file', icon: File },
-    { name: 'skills.js', type: 'file', icon: File },
-    {
-      name: 'projects',
-      type: 'folder',
-      icon: expandedFolders.has('projects') ? FolderOpen : Folder,
-      children: [
-        { name: 'CodeLink.jsx', type: 'file', icon: File },
-        { name: 'CareerHive.jsx', type: 'file', icon: File },
-      ]
-    },
-    { name: 'contact.tsx', type: 'file', icon: File },
-  ]
-
-  const renderFileItem = (item: any, depth = 0) => {
+  const renderItem = (item: any, depth = 0) => {
+    const isExpanded = expandedFolders.includes(item.name)
     const isSelected = selectedFile === item.name
-    const paddingLeft = depth * 20 + 16
 
     if (item.type === 'folder') {
-      const isExpanded = expandedFolders.has(item.name)
       return (
         <div key={item.name}>
           <div
-            className={`flex items-center py-1 px-2 cursor-pointer hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors`}
-            style={{ paddingLeft }}
+            className={cn(
+              "flex items-center space-x-2 px-2 py-1 cursor-pointer hover:bg-accent/50 transition-colors",
+              "text-sm"
+            )}
+            style={{ paddingLeft: `${depth * 16 + 8}px` }}
             onClick={() => toggleFolder(item.name)}
           >
             {isExpanded ? (
-              <ChevronDown className="w-4 h-4 mr-1 text-gray-400" />
+              <ChevronDown className="w-4 h-4 text-muted-foreground" />
             ) : (
-              <ChevronRight className="w-4 h-4 mr-1 text-gray-400" />
+              <ChevronRight className="w-4 h-4 text-muted-foreground" />
             )}
-            <item.icon className="w-4 h-4 mr-2 text-blue-400" />
-            <span className="text-gray-300">{item.name}</span>
+            {isExpanded ? (
+              <FolderOpen className="w-4 h-4 text-blue-500" />
+            ) : (
+              <Folder className="w-4 h-4 text-blue-500" />
+            )}
+            <span className="text-foreground">{item.name}</span>
           </div>
           {isExpanded && item.children && (
             <div>
-              {item.children.map((child: any) => renderFileItem(child, depth + 1))}
+              {item.children.map((child: any) => renderItem(child, depth + 1))}
             </div>
           )}
         </div>
@@ -69,26 +74,26 @@ export function FileTree({ selectedFile, onFileSelect }: FileTreeProps) {
     return (
       <div
         key={item.name}
-        className={`flex items-center py-1 px-2 cursor-pointer transition-colors ${
-          isSelected
-            ? 'bg-blue-600 dark:bg-blue-700 text-white'
-            : 'hover:bg-gray-800 dark:hover:bg-gray-700 text-gray-300'
-        }`}
-        style={{ paddingLeft }}
+        className={cn(
+          "flex items-center space-x-2 px-2 py-1 cursor-pointer hover:bg-accent/50 transition-colors",
+          "text-sm",
+          isSelected && "bg-primary/20 border-r-2 border-primary"
+        )}
+        style={{ paddingLeft: `${depth * 16 + 24}px` }}
         onClick={() => onFileSelect(item.name)}
       >
-        <item.icon className="w-4 h-4 mr-2 text-gray-400" />
-        <span>{item.name}</span>
+        <File className="w-4 h-4 text-muted-foreground" />
+        <span className="text-foreground">{item.name}</span>
       </div>
     )
   }
 
   return (
-    <div className="p-2">
-      <div className="text-xs text-gray-500 uppercase tracking-wide mb-2 px-2">
-        Explorer
+    <div className="p-2 space-y-1">
+      <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide px-2 py-1">
+        Portfolio Files
       </div>
-      {files.map(file => renderFileItem(file))}
+      {fileStructure.map(item => renderItem(item))}
     </div>
   )
 }

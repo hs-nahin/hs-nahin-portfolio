@@ -1,133 +1,152 @@
-"use client"
+'use client'
 
-import { motion } from 'framer-motion'
+import { ExternalLink, Github } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ExternalLink, Github } from 'lucide-react'
-import { Icon } from '@iconify/react'
 
 interface ProjectContentProps {
   project: 'CodeLink' | 'CareerHive'
 }
 
+const projectData = {
+  CodeLink: {
+    name: 'CodeLink',
+    description: 'A modern code sharing platform where developers can share, discover, and collaborate on code snippets. Features syntax highlighting, real-time collaboration, and community-driven content.',
+    image: 'https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=800',
+    techStack: ['React.js', 'Next.js', 'TypeScript', 'Tailwind CSS', 'Prisma', 'PostgreSQL'],
+    features: [
+      'Real-time code collaboration',
+      'Syntax highlighting for 50+ languages',
+      'Community-driven content sharing',
+      'Advanced search and filtering',
+      'User profiles and portfolios',
+      'Responsive design'
+    ],
+    liveUrl: 'https://codelink-demo.vercel.app',
+    githubUrl: 'https://github.com/hs-nahin/codelink',
+    status: 'Live'
+  },
+  CareerHive: {
+    name: 'CareerHive',
+    description: 'A comprehensive job portal connecting talented professionals with top companies. Features advanced job matching, application tracking, and career development resources.',
+    image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800',
+    techStack: ['Next.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Node.js', 'MongoDB'],
+    features: [
+      'Advanced job search and filtering',
+      'Application tracking system',
+      'Company profiles and reviews',
+      'Resume builder and optimization',
+      'Interview scheduling',
+      'Career development resources'
+    ],
+    liveUrl: 'https://careerhive-demo.vercel.app',
+    githubUrl: 'https://github.com/hs-nahin/careerhive',
+    status: 'In Development'
+  }
+}
+
 export function ProjectContent({ project }: ProjectContentProps) {
-  const projectData = {
-    CodeLink: {
-      title: 'CodeLink',
-      description: 'Collaborative platform for sharing and reviewing code snippets',
-      longDescription: 'CodeLink is a modern platform designed for developers to share, review, and collaborate on code snippets. Built with React and Firebase, it provides real-time collaboration features, syntax highlighting, and a clean interface for code sharing.',
-      tech: ['React', 'Tailwind CSS', 'Firebase'],
-      features: [
-        'Real-time code sharing and collaboration',
-        'Syntax highlighting for multiple languages',
-        'User authentication and profiles',
-        'Code snippet versioning',
-        'Community-driven code reviews'
-      ],
-      github: 'https://github.com/hs-nahin/codelink',
-      live: 'https://codelink-demo.vercel.app',
-      image: 'https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg?auto=compress&cs=tinysrgb&w=800'
-    },
-    CareerHive: {
-      title: 'CareerHive',
-      description: 'Developer-focused job board platform',
-      longDescription: 'CareerHive is a specialized job board platform tailored for developers and tech professionals. Built with Next.js and MongoDB, it offers advanced filtering, company profiles, and a streamlined application process.',
-      tech: ['Next.js', 'Tailwind CSS', 'MongoDB'],
-      features: [
-        'Advanced job filtering and search',
-        'Company profiles and reviews',
-        'Application tracking system',
-        'Salary insights and trends',
-        'Developer-focused job categories'
-      ],
-      github: 'https://github.com/hs-nahin/careerhive',
-      live: 'https://careerhive-demo.vercel.app',
-      image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800'
-    }
-  }
-
-  const currentProject = projectData[project]
-
-  const techIcons: { [key: string]: string } = {
-    'React': 'vscode-icons:file-type-reactjs',
-    'Next.js': 'vscode-icons:file-type-next',
-    'Tailwind CSS': 'vscode-icons:file-type-tailwind',
-    'Firebase': 'vscode-icons:file-type-firebase',
-    'MongoDB': 'vscode-icons:file-type-mongo'
-  }
+  const data = projectData[project]
 
   return (
-    <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-      >
-        <h1 className="text-3xl font-bold text-blue-400 mb-2">{currentProject.title}</h1>
-        <p className="text-xl text-gray-300 mb-6">{currentProject.description}</p>
-      </motion.div>
+    <div className="p-8 max-w-4xl mx-auto">
+      <div className="mb-8">
+        <div className="flex items-center justify-between mb-4">
+          <h1 className="text-4xl font-bold aurora-text">{data.name}</h1>
+          <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+            data.status === 'Live' 
+              ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+              : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+          }`}>
+            {data.status}
+          </span>
+        </div>
+        <p className="text-lg text-muted-foreground mb-6">
+          {data.description}
+        </p>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.6 }}
-      >
-        <Card className="p-6 bg-gray-800/50 border-gray-700 mb-8">
-          <div className="aspect-video bg-gray-700 rounded-lg mb-6 overflow-hidden">
-            <img 
-              src={currentProject.image} 
-              alt={currentProject.title}
-              className="w-full h-full object-cover"
-            />
-          </div>
-          
-          <div className="flex flex-wrap gap-4 mb-6">
-            <Button asChild className="bg-blue-600 hover:bg-blue-700">
-              <a href={currentProject.live} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="w-4 h-4 mr-2" />
-                Live Demo
-              </a>
-            </Button>
-            <Button variant="outline" asChild className="border-gray-600 hover:border-blue-500">
-              <a href={currentProject.github} target="_blank" rel="noopener noreferrer">
-                <Github className="w-4 h-4 mr-2" />
-                View Code
-              </a>
-            </Button>
-          </div>
+      {/* Project Image */}
+      <div className="mb-8 rounded-lg overflow-hidden border border-border">
+        <img
+          src={data.image}
+          alt={data.name}
+          className="w-full h-64 object-cover"
+        />
+      </div>
 
-          <div className="space-y-6">
-            <div>
-              <h3 className="text-lg font-semibold text-blue-300 mb-3">Technologies Used</h3>
-              <div className="flex flex-wrap gap-3">
-                {currentProject.tech.map((tech) => (
-                  <div key={tech} className="flex items-center space-x-2 bg-gray-700 px-3 py-2 rounded-full">
-                    <Icon icon={techIcons[tech]} className="w-5 h-5" />
-                    <span className="text-sm text-gray-300">{tech}</span>
-                  </div>
-                ))}
+      {/* Action Buttons */}
+      <div className="flex flex-wrap gap-4 mb-8">
+        <Button
+          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white cursor-pointer"
+          onClick={() => window.open(data.liveUrl, '_blank')}
+        >
+          <ExternalLink className="w-4 h-4 mr-2" />
+          View Live Demo
+        </Button>
+        <Button
+          variant="outline"
+          className="cursor-pointer"
+          onClick={() => window.open(data.githubUrl, '_blank')}
+        >
+          <Github className="w-4 h-4 mr-2" />
+          View Source Code
+        </Button>
+      </div>
+
+      {/* Tech Stack */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-4">Tech Stack</h2>
+        <div className="flex flex-wrap gap-2">
+          {data.techStack.map((tech) => (
+            <span
+              key={tech}
+              className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-medium border border-primary/20"
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Features */}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-4">Key Features</h2>
+        <div className="grid md:grid-cols-2 gap-4">
+          {data.features.map((feature, index) => (
+            <Card key={index} className="p-4 border-beam">
+              <div className="flex items-start space-x-3">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                <span className="text-muted-foreground">{feature}</span>
               </div>
-            </div>
+            </Card>
+          ))}
+        </div>
+      </div>
 
-            <div>
-              <h3 className="text-lg font-semibold text-blue-300 mb-3">Project Overview</h3>
-              <p className="text-gray-300 leading-relaxed">{currentProject.longDescription}</p>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold text-blue-300 mb-3">Key Features</h3>
-              <ul className="space-y-2">
-                {currentProject.features.map((feature, index) => (
-                  <li key={index} className="flex items-start space-x-2 text-gray-300">
-                    <span className="text-blue-400 mt-1">•</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </Card>
-      </motion.div>
+      {/* Project Details */}
+      <Card className="p-6 bg-card/50">
+        <h2 className="text-2xl font-bold mb-4">Project Overview</h2>
+        <div className="prose prose-lg dark:prose-invert max-w-none">
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            This project showcases my ability to build full-stack web applications with modern
+            technologies and best practices. The application features a clean, intuitive interface
+            built with React and Next.js, styled with Tailwind CSS for a responsive design.
+          </p>
+          <p className="text-muted-foreground leading-relaxed mb-4">
+            The backend architecture ensures scalability and performance, while the frontend
+            provides an exceptional user experience with smooth animations and interactions.
+            The project demonstrates proficiency in both frontend and backend development,
+            as well as deployment and DevOps practices.
+          </p>
+          <p className="text-muted-foreground leading-relaxed">
+            Key challenges overcome include optimizing performance for large datasets,
+            implementing real-time features, and ensuring cross-browser compatibility.
+            The project follows industry best practices for code organization, testing,
+            and documentation.
+          </p>
+        </div>
+      </Card>
     </div>
   )
 }

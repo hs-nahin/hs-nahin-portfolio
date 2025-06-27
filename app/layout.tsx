@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Hasnat Shahriyar - Frontend Developer',
-  description: 'Frontend Web Developer crafting clean, fast, and interactive web interfaces with React, Next.js, and Tailwind.',
+  description: 'Crafting clean, fast, and interactive web interfaces with React, Next.js, and Tailwind.',
 }
 
 export default function RootLayout({
@@ -19,18 +19,16 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} cursor-pointer-custom`}>
+      <body className={inter.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
-          disableTransitionOnChange={false}
+          disableTransitionOnChange
         >
           <CustomCursor />
-          <Particles className="absolute inset-0 -z-10" />
-          <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 dark:from-gray-900 dark:via-blue-950 dark:to-gray-900">
-            {children}
-          </div>
+          <Particles />
+          {children}
         </ThemeProvider>
       </body>
     </html>

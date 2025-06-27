@@ -1,63 +1,79 @@
-"use client"
+'use client'
 
 import { useEffect, useState } from 'react'
-import { motion } from 'framer-motion'
 
-export function Confetti() {
-  const [confetti, setConfetti] = useState<Array<{
-    id: number
-    x: number
-    y: number
-    color: string
-    size: number
-    rotation: number
-  }>>([])
+interface ConfettiPiece {
+  id: number
+  x: number
+  y: number
+  rotation: number
+  color: string
+  size: number
+  speedX: number
+  speedY: number
+}
+
+export function Confetti({ active, onComplete }: { active: boolean; onComplete?: () => void }) {
+  const [pieces, setPieces] = useState<ConfettiPiece[]>([])
 
   useEffect(() => {
-    const colors = ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6', '#06B6D4']
-    const confettiArray = Array.from({ length: 50 }, (_, i) => ({
-      id: i,
-      x: Math.random() * window.innerWidth,
-      y: -10,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      size: Math.random() * 8 + 4,
-      rotation: Math.random() * 360,
-    }))
-    setConfetti(confettiArray)
+    if (!active) return
 
-    const timer = setTimeout(() => {
-      setConfetti([])
+    const colors = ['#3b82f6', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444']
+    const newPieces: ConfettiPiece[] = []
+
+    for (let i = 0; i < 50; i++) {
+      newPieces.push({
+        id: i,
+        x: Math.random() * window.innerWidth,
+        y: -10,
+        rotation: Math.random() * 360,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        size: Math.random() * 8 + 4,
+        speedX: (Math.random() - 0.5) * 4,
+        speedY: Math.random() * 3 + 2,
+      })
+    }
+
+    setPieces(newPieces)
+
+    const animateConfetti = () => {
+      setPieces(prev => prev.map(piece => ({
+        ...piece,
+        x: piece.x + piece.speedX,
+        y: piece.y + piece.speedY,
+        rotation: piece.rotation + 5,
+      })).filter(piece => piece.y < window.innerHeight + 50))
+    }
+
+    const interval = setInterval(animateConfetti, 16)
+    const timeout = setTimeout(() => {
+      clearInterval(interval)
+      setPieces([])
+      onComplete?.()
     }, 3000)
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => {
+      clearInterval(interval)
+      clearTimeout(timeout)
+    }
+  }, [active, onComplete])
+
+  if (!active) return null
 
   return (
     <div className="fixed inset-0 pointer-events-none z-50">
-      {confetti.map((piece) => (
-        <motion.div
+      {pieces.map(piece => (
+        <div
           key={piece.id}
           className="absolute"
           style={{
+            left: `${piece.x}px`,
+            top: `${piece.y}px`,
+            width: `${piece.size}px`,
+            height: `${piece.size}px`,
             backgroundColor: piece.color,
-            width: piece.size,
-            height: piece.size,
-            borderRadius: '2px',
-          }}
-          initial={{
-            x: piece.x,
-            y: piece.y,
-            rotate: piece.rotation,
-            opacity: 1,
-          }}
-          animate={{
-            y: window.innerHeight + 100,
-            rotate: piece.rotation + 360,
-            opacity: 0,
-          }}
-          transition={{
-            duration: 3,
-            ease: 'easeOut',
+            transform: `rotate(${piece.rotation}deg)`,
           }}
         />
       ))}

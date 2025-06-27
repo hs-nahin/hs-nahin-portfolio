@@ -1,73 +1,59 @@
-"use client"
+'use client'
 
-import { motion } from 'framer-motion'
+import { useState } from 'react'
+import { Send, Mail, Phone, MapPin } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Meteors } from '@/components/ui/meteors'
-import { Confetti } from '@/components/ui/confetti'
-import { Download, Send } from 'lucide-react'
-import { useState } from 'react'
 
 export function ContactContent() {
-  const [showConfetti, setShowConfetti] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleDownloadCV = () => {
-    setShowConfetti(true)
-    setTimeout(() => setShowConfetti(false), 3000)
-    // In a real app, this would trigger the actual CV download
-    console.log('Downloading CV...')
-  }
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
-    console.log('Form submitted:', formData)
+    setIsSubmitting(true)
+    
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    
     alert('Message sent successfully!')
+    setFormData({ name: '', email: '', message: '' })
+    setIsSubmitting(false)
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData(prev => ({
+      ...prev,
       [e.target.name]: e.target.value
-    })
+    }))
   }
 
   return (
-    <div className="space-y-8 relative">
-      <Meteors number={20} />
-      {showConfetti && <Confetti />}
-      
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-center"
-      >
-        <h1 className="text-3xl font-bold text-blue-400 mb-4">Let's Work Together</h1>
-        <p className="text-gray-300 text-lg max-w-2xl mx-auto">
-          I'm always interested in new opportunities and exciting projects. 
-          Let's connect and discuss how we can bring your ideas to life.
+    <div className="p-8 max-w-4xl mx-auto">
+      <div className="mb-8 text-center">
+        <h1 className="text-4xl font-bold mb-4 aurora-text">Let's Work Together</h1>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          Have a project in mind or want to discuss opportunities? I'd love to hear from you.
+          Let's create something amazing together!
         </p>
-      </motion.div>
+      </div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2, duration: 0.6 }}
-        className="max-w-2xl mx-auto"
-      >
-        <Card className="p-8 bg-gray-800/50 border-gray-700 relative overflow-hidden">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid lg:grid-cols-2 gap-8">
+        {/* Contact Form */}
+        <Card className="p-6 relative overflow-hidden">
+          <Meteors number={20} />
+          <div className="relative z-10">
+            <h2 className="text-2xl font-bold mb-6">Send a Message</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="name" className="block text-sm font-medium mb-2">
                   Name
                 </label>
                 <Input
@@ -76,13 +62,14 @@ export function ContactContent() {
                   type="text"
                   required
                   value={formData.name}
-                  onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
-                  placeholder="Your name"
+                  onChange={handleChange}
+                  className="w-full"
+                  placeholder="Your full name"
                 />
               </div>
+              
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                <label htmlFor="email" className="block text-sm font-medium mb-2">
                   Email
                 </label>
                 <Input
@@ -91,74 +78,121 @@ export function ContactContent() {
                   type="email"
                   required
                   value={formData.email}
-                  onChange={handleInputChange}
-                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
+                  onChange={handleChange}
+                  className="w-full"
                   placeholder="your.email@example.com"
                 />
               </div>
-            </div>
-            
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                Message
-              </label>
-              <Textarea
-                id="message"
-                name="message"
-                required
-                value={formData.message}
-                onChange={handleInputChange}
-                rows={6}
-                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 resize-none"
-                placeholder="Tell me about your project or just say hello..."
-              />
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                type="submit"
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 group"
-              >
-                <Send className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
-                Send Message
-              </Button>
+              
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium mb-2">
+                  Message
+                </label>
+                <Textarea
+                  id="message"
+                  name="message"
+                  required
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="w-full min-h-[120px]"
+                  placeholder="Tell me about your project or how I can help..."
+                />
+              </div>
               
               <Button
-                type="button"
-                variant="outline"
-                onClick={handleDownloadCV}
-                className="flex-1 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 group"
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white cursor-pointer"
               >
-                <Download className="w-4 h-4 mr-2 group-hover:translate-y-1 transition-transform" />
-                Download CV
+                {isSubmitting ? (
+                  'Sending...'
+                ) : (
+                  <>
+                    <Send className="w-4 h-4 mr-2" />
+                    Send Message
+                  </>
+                )}
               </Button>
-            </div>
-          </form>
+            </form>
+          </div>
         </Card>
-      </motion.div>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.4, duration: 0.6 }}
-        className="text-center"
-      >
-        <p className="text-gray-400 mb-4">Or reach out directly:</p>
-        <div className="flex justify-center space-x-8 text-sm">
-          <a 
-            href="mailto:hasnat@example.com" 
-            className="text-blue-400 hover:text-blue-300 transition-colors"
-          >
-            hasnat@example.com
-          </a>
-          <a 
-            href="tel:+1234567890" 
-            className="text-blue-400 hover:text-blue-300 transition-colors"
-          >
-            +1 (234) 567-890
-          </a>
+        {/* Contact Information */}
+        <div className="space-y-6">
+          <Card className="p-6">
+            <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
+            <div className="space-y-4">
+              <div className="flex items-center space-x-4">
+                <div className="p-3 bg-primary/10 rounded-full">
+                  <Mail className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-medium">Email</p>
+                  <p className="text-muted-foreground">hs.nahin430@gmail.com</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-4">
+                <div className="p-3 bg-primary/10 rounded-full">
+                  <Phone className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-medium">Phone</p>
+                  <p className="text-muted-foreground">+880 123 456 789</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center space-x-4">
+                <div className="p-3 bg-primary/10 rounded-full">
+                  <MapPin className="w-5 h-5 text-primary" />
+                </div>
+                <div>
+                  <p className="font-medium">Location</p>
+                  <p className="text-muted-foreground">Dhaka, Bangladesh</p>
+                </div>
+              </div>
+            </div>
+          </Card>
+
+          <Card className="p-6">
+            <h3 className="text-xl font-bold mb-4">Why Work With Me?</h3>
+            <ul className="space-y-3 text-muted-foreground">
+              <li className="flex items-start space-x-2">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                <span>Clean, maintainable, and scalable code</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                <span>Responsive and accessible design</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                <span>Modern development practices</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                <span>Timely delivery and communication</span>
+              </li>
+              <li className="flex items-start space-x-2">
+                <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                <span>Post-launch support and maintenance</span>
+              </li>
+            </ul>
+          </Card>
+
+          <Card className="p-6 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
+            <h3 className="text-xl font-bold mb-4">Let's Build Something Great</h3>
+            <p className="text-muted-foreground mb-4">
+              Whether you're a startup looking to build your first product or an established
+              company wanting to modernize your web presence, I'm here to help bring your
+              vision to life.
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Response time: Usually within 24 hours
+            </p>
+          </Card>
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }
