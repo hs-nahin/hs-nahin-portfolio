@@ -1,51 +1,48 @@
 "use client"
 
-import { cn } from "@/lib/utils"
+import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 interface MeteorsProps {
   number?: number
-  className?: string
 }
 
-export const Meteors = ({ number = 20, className }: MeteorsProps) => {
-  const meteors = new Array(number).fill(true)
-  
+export function Meteors({ number = 20 }: MeteorsProps) {
+  const [meteors, setMeteors] = useState<Array<{ id: number; delay: number; duration: number }>>([])
+
+  useEffect(() => {
+    const meteorArray = Array.from({ length: number }, (_, i) => ({
+      id: i,
+      delay: Math.random() * 5,
+      duration: Math.random() * 3 + 2,
+    }))
+    setMeteors(meteorArray)
+  }, [number])
+
   return (
-    <>
-      {meteors.map((_, idx) => (
-        <span
-          key={idx}
-          className={cn(
-            "meteor absolute top-1/2 left-1/2 h-0.5 w-0.5 rounded-[9999px] bg-slate-500 shadow-[0_0_0_1px_#ffffff10] rotate-[215deg]",
-            "before:content-[''] before:absolute before:top-1/2 before:transform before:-translate-y-[50%] before:w-[50px] before:h-[1px] before:bg-gradient-to-r before:from-[#64748b] before:to-transparent",
-            className
-          )}
+    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {meteors.map((meteor) => (
+        <motion.div
+          key={meteor.id}
+          className="absolute h-0.5 w-0.5 rounded-full bg-blue-500 shadow-[0_0_0_1px_#ffffff10]"
           style={{
-            top: Math.floor(Math.random() * 400 - 400) + "px",
-            left: Math.floor(Math.random() * 400 - 400) + "px",
-            animationDelay: Math.random() * (0.8 - 0.2) + 0.2 + "s",
-            animationDuration: Math.floor(Math.random() * (10 - 2) + 2) + "s",
+            top: Math.random() * -100 + 'px',
+            left: Math.random() * 100 + '%',
+          }}
+          animate={{
+            x: [0, -400],
+            y: [0, 400],
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: meteor.duration,
+            delay: meteor.delay,
+            repeat: Infinity,
+            repeatDelay: Math.random() * 10 + 5,
+            ease: 'linear',
           }}
         />
       ))}
-      <style jsx>{`
-        .meteor {
-          animation: meteor-effect 5s linear infinite;
-        }
-        @keyframes meteor-effect {
-          0% { 
-            transform: rotate(215deg) translateX(0); 
-            opacity: 1; 
-          }
-          70% { 
-            opacity: 1; 
-          }
-          100% {
-            transform: rotate(215deg) translateX(-500px);
-            opacity: 0;
-          }
-        }
-      `}</style>
-    </>
+    </div>
   )
 }

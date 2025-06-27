@@ -1,21 +1,36 @@
 "use client"
 
-import { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Meteors } from '@/components/ui/meteors'
 import { Confetti } from '@/components/ui/confetti'
 import { Download, Send } from 'lucide-react'
+import { useState } from 'react'
 
 export function ContactContent() {
+  const [showConfetti, setShowConfetti] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   })
-  const [showConfetti, setShowConfetti] = useState(false)
+
+  const handleDownloadCV = () => {
+    setShowConfetti(true)
+    setTimeout(() => setShowConfetti(false), 3000)
+    // In a real app, this would trigger the actual CV download
+    console.log('Downloading CV...')
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    // Handle form submission
+    console.log('Form submitted:', formData)
+    alert('Message sent successfully!')
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -24,42 +39,33 @@ export function ContactContent() {
     })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
-    // Reset form
-    setFormData({ name: '', email: '', message: '' })
-  }
-
-  const handleDownloadCV = () => {
-    setShowConfetti(true)
-    // Handle CV download here
-    console.log('CV download triggered')
-  }
-
   return (
-    <div className="text-white p-8 max-w-4xl mx-auto relative">
-      <Confetti trigger={showConfetti} onComplete={() => setShowConfetti(false)} />
+    <div className="space-y-8 relative">
+      <Meteors number={20} />
+      {showConfetti && <Confetti />}
       
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-4 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
-          Get In Touch
-        </h1>
-        <p className="text-gray-300">
-          Let's discuss your next project or just say hello!
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-center"
+      >
+        <h1 className="text-3xl font-bold text-blue-400 mb-4">Let's Work Together</h1>
+        <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+          I'm always interested in new opportunities and exciting projects. 
+          Let's connect and discuss how we can bring your ideas to life.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
-        {/* Contact Form */}
-        <Card className="relative border-blue-500/20 bg-gray-900/30 overflow-hidden">
-          <Meteors number={20} />
-          <CardHeader>
-            <CardTitle className="text-blue-300">Send Message</CardTitle>
-          </CardHeader>
-          <CardContent className="relative z-10">
-            <form onSubmit={handleSubmit} className="space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.6 }}
+        className="max-w-2xl mx-auto"
+      >
+        <Card className="p-8 bg-gray-800/50 border-gray-700 relative overflow-hidden">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                   Name
@@ -68,14 +74,13 @@ export function ContactContent() {
                   id="name"
                   name="name"
                   type="text"
+                  required
                   value={formData.name}
                   onChange={handleInputChange}
-                  className="bg-gray-800/50 border-blue-500/30 text-white placeholder:text-gray-400 focus:border-blue-400"
+                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
                   placeholder="Your name"
-                  required
                 />
               </div>
-
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
                   Email
@@ -84,102 +89,76 @@ export function ContactContent() {
                   id="email"
                   name="email"
                   type="email"
+                  required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="bg-gray-800/50 border-blue-500/30 text-white placeholder:text-gray-400 focus:border-blue-400"
+                  className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500"
                   placeholder="your.email@example.com"
-                  required
                 />
               </div>
+            </div>
+            
+            <div>
+              <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                Message
+              </label>
+              <Textarea
+                id="message"
+                name="message"
+                required
+                value={formData.message}
+                onChange={handleInputChange}
+                rows={6}
+                className="bg-gray-700 border-gray-600 text-white placeholder-gray-400 focus:border-blue-500 resize-none"
+                placeholder="Tell me about your project or just say hello..."
+              />
+            </div>
 
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
-                  Message
-                </label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  className="bg-gray-800/50 border-blue-500/30 text-white placeholder:text-gray-400 focus:border-blue-400 min-h-[120px]"
-                  placeholder="Tell me about your project..."
-                  required
-                />
-              </div>
-
+            <div className="flex flex-col sm:flex-row gap-4">
               <Button
                 type="submit"
-                variant="shine"
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600"
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 group"
               >
-                <Send size={18} className="mr-2" />
+                <Send className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
                 Send Message
               </Button>
-            </form>
-          </CardContent>
-        </Card>
-
-        {/* Contact Info & CV Download */}
-        <div className="space-y-6">
-          <Card className="border-blue-500/20 bg-gray-900/30">
-            <CardHeader>
-              <CardTitle className="text-blue-300">Contact Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div>
-                <h3 className="font-semibold text-white mb-2">Email</h3>
-                <p className="text-gray-300">hs.nahin430@gmail.com</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-2">Location</h3>
-                <p className="text-gray-300">Available for remote work worldwide</p>
-              </div>
-              <div>
-                <h3 className="font-semibold text-white mb-2">Response Time</h3>
-                <p className="text-gray-300">Usually within 24 hours</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card className="border-blue-500/20 bg-gray-900/30">
-            <CardHeader>
-              <CardTitle className="text-blue-300">Resume</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-300 mb-4">
-                Download my resume to learn more about my experience and skills.
-              </p>
+              
               <Button
-                onClick={handleDownloadCV}
+                type="button"
                 variant="outline"
-                className="w-full border-blue-500/30 hover:border-blue-400 hover:bg-blue-500/10"
+                onClick={handleDownloadCV}
+                className="flex-1 border-blue-500 text-blue-400 hover:bg-blue-500 hover:text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:scale-105 group"
               >
-                <Download size={18} className="mr-2" />
+                <Download className="w-4 h-4 mr-2 group-hover:translate-y-1 transition-transform" />
                 Download CV
               </Button>
-            </CardContent>
-          </Card>
+            </div>
+          </form>
+        </Card>
+      </motion.div>
 
-          <Card className="border-blue-500/20 bg-gray-900/30">
-            <CardHeader>
-              <CardTitle className="text-blue-300">Let's Work Together</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-300 mb-4">
-                I'm always interested in new opportunities and exciting projects. 
-                Whether you need a frontend developer for your team or want to discuss 
-                a freelance project, I'd love to hear from you.
-              </p>
-              <div className="space-y-2 text-sm text-gray-400">
-                <p>✓ Frontend Development</p>
-                <p>✓ React & Next.js Applications</p>
-                <p>✓ UI/UX Implementation</p>
-                <p>✓ Performance Optimization</p>
-              </div>
-            </CardContent>
-          </Card>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.4, duration: 0.6 }}
+        className="text-center"
+      >
+        <p className="text-gray-400 mb-4">Or reach out directly:</p>
+        <div className="flex justify-center space-x-8 text-sm">
+          <a 
+            href="mailto:hasnat@example.com" 
+            className="text-blue-400 hover:text-blue-300 transition-colors"
+          >
+            hasnat@example.com
+          </a>
+          <a 
+            href="tel:+1234567890" 
+            className="text-blue-400 hover:text-blue-300 transition-colors"
+          >
+            +1 (234) 567-890
+          </a>
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

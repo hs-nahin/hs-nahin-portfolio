@@ -1,22 +1,15 @@
 "use client"
 
+import { ChevronDown, ChevronRight, File, Folder, FolderOpen } from 'lucide-react'
 import { useState } from 'react'
-import { ChevronDown, ChevronRight, Folder, FolderOpen, FileText } from 'lucide-react'
-import { cn } from '@/lib/utils'
-
-interface FileItem {
-  name: string
-  type: 'file' | 'folder'
-  children?: FileItem[]
-}
 
 interface FileTreeProps {
-  activeFile: string
+  selectedFile: string
   onFileSelect: (file: string) => void
 }
 
-export function FileTree({ activeFile, onFileSelect }: FileTreeProps) {
-  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(['portfolio', 'projects']))
+export function FileTree({ selectedFile, onFileSelect }: FileTreeProps) {
+  const [expandedFolders, setExpandedFolders] = useState<Set<string>>(new Set(['projects']))
 
   const toggleFolder = (folder: string) => {
     const newExpanded = new Set(expandedFolders)
@@ -28,74 +21,74 @@ export function FileTree({ activeFile, onFileSelect }: FileTreeProps) {
     setExpandedFolders(newExpanded)
   }
 
-  const fileStructure: FileItem[] = [
+  const files = [
+    { name: 'about.md', type: 'file', icon: File },
+    { name: 'skills.js', type: 'file', icon: File },
     {
-      name: 'portfolio',
+      name: 'projects',
       type: 'folder',
+      icon: expandedFolders.has('projects') ? FolderOpen : Folder,
       children: [
-        { name: 'about.md', type: 'file' },
-        { name: 'skills.js', type: 'file' },
-        {
-          name: 'projects',
-          type: 'folder',
-          children: [
-            { name: 'CodeLink.jsx', type: 'file' },
-            { name: 'CareerHive.jsx', type: 'file' },
-          ]
-        },
-        { name: 'contact.tsx', type: 'file' },
+        { name: 'CodeLink.jsx', type: 'file', icon: File },
+        { name: 'CareerHive.jsx', type: 'file', icon: File },
       ]
-    }
+    },
+    { name: 'contact.tsx', type: 'file', icon: File },
   ]
 
-  const renderFileTree = (items: FileItem[], level = 0): JSX.Element[] => {
-    return items.map((item) => {
+  const renderFileItem = (item: any, depth = 0) => {
+    const isSelected = selectedFile === item.name
+    const paddingLeft = depth * 20 + 16
+
+    if (item.type === 'folder') {
       const isExpanded = expandedFolders.has(item.name)
-      const isActive = activeFile === item.name
-      
       return (
-        <div key={item.name} className={cn("select-none", level > 0 && "ml-4")}>
+        <div key={item.name}>
           <div
-            className={cn(
-              "flex items-center space-x-2 py-1 px-2 rounded cursor-pointer hover:bg-blue-500/20 transition-colors",
-              isActive && "bg-blue-500/30 text-blue-300"
-            )}
-            onClick={() => {
-              if (item.type === 'folder') {
-                toggleFolder(item.name)
-              } else {
-                onFileSelect(item.name)
-              }
-            }}
+            className={`flex items-center py-1 px-2 cursor-pointer hover:bg-gray-800 dark:hover:bg-gray-700 transition-colors`}
+            style={{ paddingLeft }}
+            onClick={() => toggleFolder(item.name)}
           >
-            {item.type === 'folder' ? (
-              <>
-                {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
-                {isExpanded ? <FolderOpen size={16} className="text-blue-400" /> : <Folder size={16} className="text-blue-400" />}
-              </>
+            {isExpanded ? (
+              <ChevronDown className="w-4 h-4 mr-1 text-gray-400" />
             ) : (
-              <>
-                <div className="w-4" />
-                <FileText size={16} className="text-gray-400" />
-              </>
+              <ChevronRight className="w-4 h-4 mr-1 text-gray-400" />
             )}
-            <span className="text-sm font-mono text-white/80">{item.name}</span>
+            <item.icon className="w-4 h-4 mr-2 text-blue-400" />
+            <span className="text-gray-300">{item.name}</span>
           </div>
-          
-          {item.children && isExpanded && (
-            <div className="ml-2">
-              {renderFileTree(item.children, level + 1)}
+          {isExpanded && item.children && (
+            <div>
+              {item.children.map((child: any) => renderFileItem(child, depth + 1))}
             </div>
           )}
         </div>
       )
-    })
+    }
+
+    return (
+      <div
+        key={item.name}
+        className={`flex items-center py-1 px-2 cursor-pointer transition-colors ${
+          isSelected
+            ? 'bg-blue-600 dark:bg-blue-700 text-white'
+            : 'hover:bg-gray-800 dark:hover:bg-gray-700 text-gray-300'
+        }`}
+        style={{ paddingLeft }}
+        onClick={() => onFileSelect(item.name)}
+      >
+        <item.icon className="w-4 h-4 mr-2 text-gray-400" />
+        <span>{item.name}</span>
+      </div>
+    )
   }
 
   return (
-    <div className="text-white">
-      <h3 className="text-sm font-mono text-blue-300 mb-4 uppercase tracking-wider">Explorer</h3>
-      {renderFileTree(fileStructure)}
+    <div className="p-2">
+      <div className="text-xs text-gray-500 uppercase tracking-wide mb-2 px-2">
+        Explorer
+      </div>
+      {files.map(file => renderFileItem(file))}
     </div>
   )
 }

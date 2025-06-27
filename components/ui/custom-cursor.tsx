@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 export function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -11,45 +12,40 @@ export function CustomCursor() {
       setMousePosition({ x: e.clientX, y: e.clientY })
     }
 
-    const handleMouseEnter = () => setIsHovering(true)
-    const handleMouseLeave = () => setIsHovering(false)
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      if (target.tagName === 'BUTTON' || target.tagName === 'A' || target.classList.contains('cursor-pointer')) {
+        setIsHovering(true)
+      } else {
+        setIsHovering(false)
+      }
+    }
 
-    document.addEventListener('mousemove', updateMousePosition)
-    
-    // Add hover listeners to interactive elements
-    const interactiveElements = document.querySelectorAll('button, a, [role="button"]')
-    interactiveElements.forEach(el => {
-      el.addEventListener('mouseenter', handleMouseEnter)
-      el.addEventListener('mouseleave', handleMouseLeave)
-    })
+    window.addEventListener('mousemove', updateMousePosition)
+    window.addEventListener('mouseover', handleMouseOver)
 
     return () => {
-      document.removeEventListener('mousemove', updateMousePosition)
-      interactiveElements.forEach(el => {
-        el.removeEventListener('mouseenter', handleMouseEnter)
-        el.removeEventListener('mouseleave', handleMouseLeave)
-      })
+      window.removeEventListener('mousemove', updateMousePosition)
+      window.removeEventListener('mouseover', handleMouseOver)
     }
   }, [])
 
   return (
-    <>
-      <div
-        className="cursor-dot"
-        style={{
-          left: `${mousePosition.x}px`,
-          top: `${mousePosition.y}px`,
-          transform: isHovering ? 'scale(2)' : 'scale(1)',
-        }}
-      />
-      <div
-        className="cursor-ring"
-        style={{
-          left: `${mousePosition.x - 16}px`,
-          top: `${mousePosition.y - 16}px`,
-          transform: isHovering ? 'scale(1.5)' : 'scale(1)',
-        }}
-      />
-    </>
+    <motion.div
+      className="fixed top-0 left-0 w-6 h-6 pointer-events-none z-50 mix-blend-difference"
+      animate={{
+        x: mousePosition.x - 12,
+        y: mousePosition.y - 12,
+        scale: isHovering ? 1.5 : 1,
+      }}
+      transition={{
+        type: "spring",
+        stiffness: 500,
+        damping: 28,
+        mass: 0.5,
+      }}
+    >
+      <div className="w-full h-full bg-blue-500 rounded-full opacity-80" />
+    </motion.div>
   )
 }

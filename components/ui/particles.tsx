@@ -1,55 +1,37 @@
 "use client"
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from 'react'
 
 interface ParticlesProps {
   className?: string
   quantity?: number
-  staticity?: number
-  ease?: number
-  refresh?: boolean
-  color?: string
-  vx?: number
-  vy?: number
 }
 
-export function Particles({
-  className = "",
-  quantity = 30,
-  staticity = 50,
-  ease = 50,
-  refresh = false,
-  color = "#ffffff",
-  vx = 0,
-  vy = 0,
-}: ParticlesProps) {
+export function Particles({ className = '', quantity = 50 }: ParticlesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
 
-    const context = canvas.getContext("2d")
-    if (!context) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
-    let animationId: number
-    const particles: Array<{
-      x: number
-      y: number
-      translateX: number
-      translateY: number
-      size: number
-      alpha: number
-      targetAlpha: number
-      dx: number
-      dy: number
-      magnetism: number
-    }> = []
+    let animationFrameId: number
 
     const resizeCanvas = () => {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
     }
+
+    const particles: Array<{
+      x: number
+      y: number
+      vx: number
+      vy: number
+      size: number
+      opacity: number
+    }> = []
 
     const createParticles = () => {
       particles.length = 0
@@ -57,66 +39,52 @@ export function Particles({
         particles.push({
           x: Math.random() * canvas.width,
           y: Math.random() * canvas.height,
-          translateX: 0,
-          translateY: 0,
-          size: Math.random() * 2 + 0.1,
-          alpha: 1,
-          targetAlpha: parseFloat((Math.random() * 0.6 + 0.1).toFixed(1)),
-          dx: (Math.random() - 0.5) * 0.2,
-          dy: (Math.random() - 0.5) * 0.2,
-          magnetism: 0.1 + Math.random() * 4,
+          vx: (Math.random() - 0.5) * 0.5,
+          vy: (Math.random() - 0.5) * 0.5,
+          size: Math.random() * 2 + 1,
+          opacity: Math.random() * 0.5 + 0.2,
         })
       }
     }
 
     const animate = () => {
-      context.clearRect(0, 0, canvas.width, canvas.height)
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       particles.forEach((particle) => {
-        particle.x += particle.dx + vx
-        particle.y += particle.dy + vy
+        particle.x += particle.vx
+        particle.y += particle.vy
 
-        if (particle.x < 0) particle.x = canvas.width
-        if (particle.x > canvas.width) particle.x = 0
-        if (particle.y < 0) particle.y = canvas.height
-        if (particle.y > canvas.height) particle.y = 0
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
 
-        particle.alpha += (particle.targetAlpha - particle.alpha) * 0.02
-
-        context.beginPath()
-        context.arc(
-          particle.x + particle.translateX,
-          particle.y + particle.translateY,
-          particle.size,
-          0,
-          2 * Math.PI
-        )
-        context.fillStyle = `${color}${Math.floor(particle.alpha * 255).toString(16).padStart(2, "0")}`
-        context.fill()
+        ctx.beginPath()
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(59, 130, 246, ${particle.opacity})`
+        ctx.fill()
       })
 
-      animationId = requestAnimationFrame(animate)
+      animationFrameId = requestAnimationFrame(animate)
     }
 
     resizeCanvas()
     createParticles()
     animate()
 
-    window.addEventListener("resize", resizeCanvas)
+    window.addEventListener('resize', () => {
+      resizeCanvas()
+      createParticles()
+    })
 
     return () => {
-      cancelAnimationFrame(animationId)
-      window.removeEventListener("resize", resizeCanvas)
+      cancelAnimationFrame(animationFrameId)
+      window.removeEventListener('resize', resizeCanvas)
     }
-  }, [quantity, staticity, ease, refresh, color, vx, vy])
+  }, [quantity])
 
   return (
     <canvas
       ref={canvasRef}
-      className={className}
-      style={{
-        pointerEvents: "none",
-      }}
+      className={`pointer-events-none ${className}`}
     />
   )
 }

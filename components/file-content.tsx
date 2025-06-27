@@ -1,17 +1,17 @@
 "use client"
 
-import { AboutContent } from './content/about-content'
-import { SkillsContent } from './content/skills-content'
-import { ProjectContent } from './content/project-content'
-import { ContactContent } from './content/contact-content'
+import { AboutContent } from '@/components/content/about-content'
+import { SkillsContent } from '@/components/content/skills-content'
+import { ProjectContent } from '@/components/content/project-content'
+import { ContactContent } from '@/components/content/contact-content'
 
 interface FileContentProps {
-  activeFile: string
+  selectedFile: string
 }
 
-export function FileContent({ activeFile }: FileContentProps) {
+export function FileContent({ selectedFile }: FileContentProps) {
   const renderContent = () => {
-    switch (activeFile) {
+    switch (selectedFile) {
       case 'about.md':
         return <AboutContent />
       case 'skills.js':
@@ -28,8 +28,13 @@ export function FileContent({ activeFile }: FileContentProps) {
   }
 
   return (
-    <div className="p-6 h-full">
-      {renderContent()}
+    <div className="h-full overflow-auto">
+      <div className="bg-gray-800 dark:bg-gray-900 px-4 py-2 border-b border-gray-700 dark:border-gray-800">
+        <span className="text-gray-300 text-sm font-mono">{selectedFile}</span>
+      </div>
+      <div className="p-6 text-gray-100">
+        {renderContent()}
+      </div>
     </div>
   )
 }

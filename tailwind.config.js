@@ -7,7 +7,6 @@ module.exports = {
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
   ],
-  prefix: "",
   theme: {
     container: {
       center: true,
@@ -59,12 +58,36 @@ module.exports = {
       },
       keyframes: {
         "accordion-down": {
-          from: { height: "0" },
+          from: { height: 0 },
           to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
           from: { height: "var(--radix-accordion-content-height)" },
-          to: { height: "0" },
+          to: { height: 0 },
+        },
+        "border-beam": {
+          "100%": {
+            "offset-distance": "100%",
+          },
+        },
+        shine: {
+          "0%": {
+            "background-position": "0% 0%",
+          },
+          "50%": {
+            "background-position": "100% 100%",
+          },
+          to: {
+            "background-position": "0% 0%",
+          },
+        },
+        meteor: {
+          "0%": { transform: "rotate(215deg) translateX(0)", opacity: 1 },
+          "70%": { opacity: 1 },
+          "100%": {
+            transform: "rotate(215deg) translateX(-500px)",
+            opacity: 0,
+          },
         },
         "spin-around": {
           "0%": {
@@ -80,38 +103,38 @@ module.exports = {
             transform: "translateZ(0) rotate(360deg)",
           },
         },
-        "slide": {
+        slide: {
           to: {
             transform: "translate(calc(100cqw - 100%), 0)",
           },
         },
-        "meteor": {
-          "0%": { transform: "rotate(215deg) translateX(0)", opacity: "1" },
-          "70%": { opacity: "1" },
-          "100%": {
-            transform: "rotate(215deg) translateX(-500px)",
-            opacity: "0",
-          },
-        },
-        "shine": {
+        typing: {
           "0%": {
-            "background-position": "0% 0%",
+            width: "0%",
+            visibility: "hidden"
           },
-          "50%": {
-            "background-position": "100% 100%",
-          },
-          "to": {
-            "background-position": "0% 0%",
-          },
+          "100%": {
+            width: "100%"
+          }  
         },
+        blink: {
+          "50%": {
+            borderColor: "transparent"
+          },
+          "100%": {
+            borderColor: "white"
+          }  
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
+        shine: "shine var(--duration) infinite linear",
+        meteor: "meteor 5s linear infinite",
         "spin-around": "spin-around calc(var(--speed) * 2) infinite linear",
-        "slide": "slide var(--speed) ease-in-out infinite alternate",
-        "meteor-effect": "meteor 5s linear infinite",
-        "shine": "shine var(--duration) infinite linear",
+        slide: "slide var(--speed) ease-in-out infinite alternate",
+        typing: "typing 3.5s steps(40, end), blink .75s step-end infinite"
       },
     },
   },
