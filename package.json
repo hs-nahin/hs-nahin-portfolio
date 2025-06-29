@@ -23,14 +23,13 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.5",
     "@radix-ui/react-hover-card": "^1.0.7",
-    "@radix-ui/react-command": "^1.0.0",
     "@radix-ui/react-alert-dialog": "^1.0.5",
     "next-themes": "^0.2.1",
     "tailwindcss-animate": "^1.0.7",
     "@iconify/react": "^4.1.1",
     "gsap": "^3.12.2",
     "framer-motion": "^11.0.0",
-    "cmdk": "^0.2.0"
+    "cmdk": "^1.0.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
