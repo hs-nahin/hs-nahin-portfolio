@@ -2,10 +2,10 @@
 module.exports = {
   darkMode: ["class"],
   content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './src/**/*.{ts,tsx}',
+    './pages/**/*.{js,jsx}',
+    './components/**/*.{js,jsx}',
+    './app/**/*.{js,jsx}',
+    './src/**/*.{js,jsx}',
   ],
   prefix: "",
   theme: {
@@ -87,27 +87,13 @@ module.exports = {
             opacity: "0",
           },
         },
-        "typewriter": {
-          to: {
-            left: "100%",
-          },
+        "grid": {
+          "0%": { transform: "translateY(-50%)" },
+          "100%": { transform: "translateY(0)" },
         },
-        "blink": {
-          "0%": {
-            opacity: "0",
-          },
-          "0.1%": {
-            opacity: "1",
-          },
-          "50%": {
-            opacity: "1",
-          },
-          "50.1%": {
-            opacity: "0",
-          },
-          "100%": {
-            opacity: "0",
-          },
+        "retro-grid": {
+          "0%": { transform: "translateY(0%)" },
+          "100%": { transform: "translateY(-100%)" },
         },
         "fade-in": {
           "0%": {
@@ -137,6 +123,24 @@ module.exports = {
             transform: "translateY(-2000px)",
           },
         },
+        "text-reveal": {
+          "0%": {
+            transform: "translateY(100%)",
+          },
+          "100%": {
+            transform: "translateY(0%)",
+          },
+        },
+        "blur-in": {
+          "0%": {
+            filter: "blur(20px)",
+            opacity: "0",
+          },
+          "100%": {
+            filter: "blur(0px)",
+            opacity: "1",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -144,11 +148,13 @@ module.exports = {
         "border-beam": "border-beam calc(var(--duration)*1s) infinite linear",
         "shine": "shine var(--duration) infinite linear",
         "meteor": "meteor 5s linear infinite",
-        "typewriter": "typewriter 2s steps(11) forwards",
-        "caret": "typewriter 2s steps(11) forwards, blink 1s steps(11) infinite 2s",
+        "grid": "grid 15s linear infinite",
+        "retro-grid": "retro-grid 15s linear infinite",
         "fade-in": "fade-in 0.5s ease-out",
         "slide-up": "slide-up 0.5s ease-out",
         "particles": "particles 3s ease-out infinite",
+        "text-reveal": "text-reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0.5s",
+        "blur-in": "blur-in 1s ease-out",
       },
     },
   },

@@ -55,100 +55,149 @@
   }
   body {
     @apply bg-background text-foreground;
-    cursor: none;
   }
 }
 
-.custom-cursor {
-  position: fixed;
-  width: 20px;
-  height: 20px;
-  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.1s ease;
-  box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+/* Retro Grid */
+.retro-grid {
+  background-image: 
+    linear-gradient(to right, hsl(var(--border)) 1px, transparent 1px),
+    linear-gradient(to bottom, hsl(var(--border)) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: retro-grid 15s linear infinite;
 }
 
-.custom-cursor.hover {
-  transform: scale(1.5);
-  background: linear-gradient(45deg, #60a5fa, #3b82f6);
-}
-
-.typewriter {
+/* Terminal Styles */
+.terminal-window {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
   overflow: hidden;
-  border-right: 0.15em solid;
-  white-space: nowrap;
-  animation: 
-    typing 3.5s steps(40, end),
-    blink-caret .75s step-end infinite;
 }
 
-@keyframes typing {
-  from { width: 0 }
-  to { width: 100% }
+.terminal-header {
+  background: hsl(var(--muted));
+  padding: 12px 16px;
+  border-bottom: 1px solid hsl(var(--border));
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: currentColor; }
+.terminal-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
 }
 
-.aurora-text {
-  background: linear-gradient(
-    45deg,
-    #3b82f6,
-    #8b5cf6,
-    #06b6d4,
-    #10b981,
-    #f59e0b,
-    #ef4444
-  );
-  background-size: 400% 400%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: aurora 3s ease-in-out infinite;
+.terminal-dot.red { background: #ff5f56; }
+.terminal-dot.yellow { background: #ffbd2e; }
+.terminal-dot.green { background: #27ca3f; }
+
+/* File Tree Styles */
+.file-tree-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
-@keyframes aurora {
-  0%, 100% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
+.file-tree-item:hover {
+  background: hsl(var(--accent));
 }
 
-.gradient-hover {
+.file-tree-item.selected {
+  background: hsl(var(--primary) / 0.1);
+  border-left: 2px solid hsl(var(--primary));
+}
+
+/* Magic UI Enhancements */
+.magic-card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 8px;
   transition: all 0.3s ease;
 }
 
-.gradient-hover:hover {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+.magic-card:hover {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 4px 20px hsl(var(--primary) / 0.1);
 }
 
-.border-beam {
+/* Text Animations */
+.text-blur-in {
+  animation: blur-in 1s ease-out;
+}
+
+.text-slide-up {
+  animation: slide-up 0.8s ease-out;
+}
+
+.text-fade-in {
+  animation: fade-in 1s ease-out;
+}
+
+/* Professional Gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary)) 50%, hsl(var(--accent)));
+}
+
+.gradient-card {
+  background: linear-gradient(135deg, hsl(var(--card)), hsl(var(--muted)));
+}
+
+/* Skill Tree Styles */
+.skill-tree-node {
   position: relative;
-  overflow: hidden;
+  padding-left: 20px;
 }
 
-.border-beam::before {
+.skill-tree-node::before {
   content: '';
   position: absolute;
-  inset: 0;
-  padding: 2px;
-  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #06b6d4, #10b981);
-  border-radius: inherit;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  animation: border-beam 2s linear infinite;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: hsl(var(--border));
 }
 
-.particles-bg {
+.skill-tree-node::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 12px;
+  width: 12px;
+  height: 1px;
+  background: hsl(var(--border));
+}
+
+/* Interactive Hover Effects */
+.interactive-hover {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.interactive-hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.interactive-hover:hover::before {
+  left: 100%;
+}
+
+/* Particles Background */
+.particles-container {
   position: fixed;
   top: 0;
   left: 0;
@@ -162,17 +211,18 @@
   position: absolute;
   width: 2px;
   height: 2px;
-  background: #3b82f6;
+  background: hsl(var(--primary));
   border-radius: 50%;
   animation: particles 3s ease-out infinite;
 }
 
+/* Meteors */
 .meteor {
   position: absolute;
   top: 50%;
   left: 50%;
   height: 2px;
-  background: linear-gradient(90deg, #3b82f6, transparent);
+  background: linear-gradient(90deg, hsl(var(--primary)), transparent);
   border-radius: 9999px;
   animation: meteor 5s linear infinite;
 }
@@ -184,30 +234,23 @@
   transform: translateY(-50%);
   width: 50px;
   height: 1px;
-  background: linear-gradient(90deg, #3b82f6, transparent);
+  background: linear-gradient(90deg, hsl(var(--primary)), transparent);
 }
 
-.shine-border {
-  position: relative;
-  overflow: hidden;
+/* Professional Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-.shine-border::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.2),
-    transparent
-  );
-  transition: left 0.5s;
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
 }
 
-.shine-border:hover::before {
-  left: 100%;
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
 }
