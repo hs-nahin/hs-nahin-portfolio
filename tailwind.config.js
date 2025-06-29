@@ -17,6 +17,10 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-mono)', 'Consolas', 'monospace'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -141,6 +145,14 @@ module.exports = {
             opacity: "1",
           },
         },
+        "glow": {
+          "0%, 100%": {
+            boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)",
+          },
+          "50%": {
+            boxShadow: "0 0 30px rgba(59, 130, 246, 0.6)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -155,6 +167,7 @@ module.exports = {
         "particles": "particles 3s ease-out infinite",
         "text-reveal": "text-reveal 1.5s cubic-bezier(0.77, 0, 0.175, 1) 0.5s",
         "blur-in": "blur-in 1s ease-out",
+        "glow": "glow 2s ease-in-out infinite",
       },
     },
   },

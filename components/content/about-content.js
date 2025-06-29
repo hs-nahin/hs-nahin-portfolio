@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { Github, Mail, Linkedin, Facebook, Twitter, Download, ExternalLink } from 'lucide-react'
+import { Github, Mail, Linkedin, Facebook, Twitter, Download, ExternalLink, Code2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
@@ -21,7 +21,7 @@ export function AboutContent() {
       { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }
     )
 
-    gsap.fromTo('.profile-image', 
+    gsap.fromTo('.logo-container', 
       { scale: 0, rotation: -180 },
       { scale: 1, rotation: 0, duration: 1.2, delay: 0.3, ease: 'back.out(1.7)' }
     )
@@ -63,18 +63,14 @@ export function AboutContent() {
       
       {/* Hero Section */}
       <div className="hero-section text-center mb-16 relative z-10">
-        {/* Profile Image */}
-        <div className="profile-image relative w-40 h-40 mx-auto mb-8">
-          <div className="w-full h-full rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 p-1 animate-spin">
-            <div className="w-full h-full rounded-full bg-background flex items-center justify-center">
-              <img
-                src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
-                alt="Hasnat Shahriyar"
-                className="w-36 h-36 rounded-full object-cover"
-              />
+        {/* Professional Logo */}
+        <div className="logo-container relative w-40 h-40 mx-auto mb-8">
+          <div className="w-full h-full rounded-2xl bg-gradient-to-br from-blue-600 via-purple-600 to-cyan-600 p-1 shadow-2xl">
+            <div className="w-full h-full rounded-2xl bg-background flex items-center justify-center">
+              <Code2 className="w-20 h-20 text-primary" />
             </div>
           </div>
-          <Badge className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground">
+          <Badge className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground shadow-lg">
             Senior Developer
           </Badge>
         </div>
@@ -250,12 +246,6 @@ export function AboutContent() {
                 Advanced
               </Badge>
               <span>Modern CSS & Design Systems</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <Badge className="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">
-                Proficient
-              </Badge>
-              <span>DevOps & CI/CD Pipelines</span>
             </div>
           </div>
         </Card>

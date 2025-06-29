@@ -29,7 +29,7 @@ const skillCategories = [
     ]
   },
   {
-    name: 'Tools & Technologies',
+    name: 'Tools & Deployment',
     expanded: false,
     skills: [
       { name: 'Git', icon: 'logos:git-icon', level: 'Expert', years: '8+' },
@@ -88,28 +88,37 @@ export function SkillsContent() {
   const renderSkillCard = (skill) => (
     <Card
       key={skill.name}
-      className="p-6 magic-card interactive-hover cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105"
+      className="group p-6 transition-all duration-500 hover:shadow-xl hover:shadow-primary/10 border border-border hover:border-primary/50 bg-gradient-to-br from-card to-card/50 hover:from-primary/5 hover:to-primary/10 transform hover:-translate-y-2 cursor-pointer"
     >
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <Icon icon={skill.icon} className="w-8 h-8" />
+          <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors duration-300">
+            <Icon icon={skill.icon} className="w-8 h-8" />
+          </div>
           <div>
-            <h4 className="font-semibold">{skill.name}</h4>
+            <h4 className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+              {skill.name}
+            </h4>
             <p className="text-sm text-muted-foreground">{skill.years} experience</p>
           </div>
         </div>
-        <Badge className={getLevelColor(skill.level)}>
+        <Badge className={`${getLevelColor(skill.level)} transition-all duration-300 group-hover:scale-110`}>
           {skill.level}
         </Badge>
       </div>
-      <div className="w-full bg-muted rounded-full h-2">
-        <div 
-          className={`h-2 rounded-full transition-all duration-500 ${
-            skill.level === 'Expert' ? 'bg-green-500 w-full' :
-            skill.level === 'Advanced' ? 'bg-blue-500 w-4/5' :
-            'bg-yellow-500 w-3/5'
-          }`}
-        ></div>
+      
+      {/* Skill indicator dots */}
+      <div className="flex space-x-1">
+        {[...Array(5)].map((_, i) => (
+          <div
+            key={i}
+            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+              i < (skill.level === 'Expert' ? 5 : skill.level === 'Advanced' ? 4 : 3)
+                ? 'bg-primary group-hover:bg-primary/80'
+                : 'bg-muted group-hover:bg-muted-foreground/30'
+            }`}
+          />
+        ))}
       </div>
     </Card>
   )
@@ -136,26 +145,30 @@ export function SkillsContent() {
           const isExpanded = expandedCategories.includes(category.name)
           
           return (
-            <div key={category.name} className="skill-category border border-border rounded-lg overflow-hidden magic-card">
+            <div key={category.name} className="skill-category border border-border rounded-xl overflow-hidden bg-gradient-to-r from-card to-card/80 shadow-lg hover:shadow-xl transition-all duration-300">
               <div
-                className="flex items-center justify-between p-6 bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors interactive-hover"
+                className="flex items-center justify-between p-6 bg-gradient-to-r from-muted/30 to-muted/10 cursor-pointer hover:from-muted/50 hover:to-muted/20 transition-all duration-300 group"
                 onClick={() => toggleCategory(category.name)}
               >
                 <div className="flex items-center space-x-3">
-                  <h2 className="text-xl font-semibold">{category.name}</h2>
-                  <Badge variant="secondary">
+                  <h2 className="text-xl font-semibold group-hover:text-primary transition-colors duration-300">
+                    {category.name}
+                  </h2>
+                  <Badge variant="secondary" className="group-hover:bg-primary/20 transition-colors duration-300">
                     {category.skills.length} skills
                   </Badge>
                 </div>
-                {isExpanded ? (
-                  <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform" />
-                ) : (
-                  <ChevronRight className="w-5 h-5 text-muted-foreground transition-transform" />
-                )}
+                <div className="p-2 rounded-full bg-primary/10 group-hover:bg-primary/20 transition-all duration-300">
+                  {isExpanded ? (
+                    <ChevronDown className="w-5 h-5 text-primary transition-transform duration-300" />
+                  ) : (
+                    <ChevronRight className="w-5 h-5 text-primary transition-transform duration-300" />
+                  )}
+                </div>
               </div>
               
               {isExpanded && (
-                <div className="p-6">
+                <div className="p-6 bg-gradient-to-br from-background/50 to-muted/10">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {category.skills.map(renderSkillCard)}
                   </div>
@@ -167,24 +180,24 @@ export function SkillsContent() {
       </div>
 
       {/* Experience Summary */}
-      <Card className="mt-12 p-8 magic-card bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
+      <Card className="mt-12 p-8 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-primary/20 shadow-xl">
         <h2 className="text-2xl font-bold mb-6">Professional Highlights</h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="text-center">
+          <div className="text-center p-4 rounded-lg bg-card/50 border border-primary/20">
             <div className="text-3xl font-bold text-primary mb-2">8+</div>
             <div className="text-sm text-muted-foreground">Years Experience</div>
           </div>
-          <div className="text-center">
+          <div className="text-center p-4 rounded-lg bg-card/50 border border-primary/20">
             <div className="text-3xl font-bold text-primary mb-2">50+</div>
             <div className="text-sm text-muted-foreground">Projects Delivered</div>
           </div>
-          <div className="text-center">
-            <div className="text-3xl font-bold text-primary mb-2">15+</div>
+          <div className="text-center p-4 rounded-lg bg-card/50 border border-primary/20">
+            <div className="text-3xl font-bold text-primary mb-2">12+</div>
             <div className="text-sm text-muted-foreground">Technologies Mastered</div>
           </div>
         </div>
         
-        <div className="mt-8 p-6 bg-card rounded-lg border border-border">
+        <div className="mt-8 p-6 bg-card rounded-lg border border-primary/20">
           <h3 className="text-lg font-semibold mb-4">Senior Developer Capabilities</h3>
           <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
             <div>• Architecture design and system planning</div>
