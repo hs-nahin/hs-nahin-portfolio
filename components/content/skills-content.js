@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { ChevronDown, ChevronRight } from 'lucide-react'
+import { ChevronDown, ChevronRight, Code, Palette, Wrench } from 'lucide-react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Icon } from '@iconify/react'
@@ -10,52 +10,39 @@ import { gsap } from 'gsap'
 const skillCategories = [
   {
     name: 'Languages',
+    icon: Code,
     expanded: true,
+    color: 'blue',
     skills: [
-      { name: 'JavaScript', icon: 'logos:javascript', level: 'Expert', years: '8+' },
-      { name: 'TypeScript', icon: 'logos:typescript-icon', level: 'Expert', years: '5+' },
-      { name: 'HTML5', icon: 'vscode-icons:file-type-html', level: 'Expert', years: '8+' },
-      { name: 'CSS3', icon: 'vscode-icons:file-type-css', level: 'Expert', years: '8+' },
+      { name: 'JavaScript', icon: 'logos:javascript', level: 'Expert', years: '8+', description: 'ES6+, Async/Await, Modules' },
+      { name: 'TypeScript', icon: 'logos:typescript-icon', level: 'Expert', years: '5+', description: 'Advanced Types, Generics' },
+      { name: 'HTML5', icon: 'vscode-icons:file-type-html', level: 'Expert', years: '8+', description: 'Semantic, Accessibility' },
+      { name: 'CSS3', icon: 'vscode-icons:file-type-css', level: 'Expert', years: '8+', description: 'Grid, Flexbox, Animations' },
     ]
   },
   {
     name: 'Frameworks & Libraries',
+    icon: Palette,
     expanded: true,
+    color: 'purple',
     skills: [
-      { name: 'React.js', icon: 'logos:react', level: 'Expert', years: '6+' },
-      { name: 'Next.js', icon: 'logos:nextjs-icon', level: 'Expert', years: '4+' },
-      { name: 'Vue.js', icon: 'logos:vue', level: 'Advanced', years: '3+' },
-      { name: 'Angular', icon: 'logos:angular-icon', level: 'Intermediate', years: '2+' },
+      { name: 'React.js', icon: 'logos:react', level: 'Expert', years: '6+', description: 'Hooks, Context, Performance' },
+      { name: 'Next.js', icon: 'logos:nextjs-icon', level: 'Expert', years: '4+', description: 'SSR, SSG, App Router' },
+      { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon', level: 'Expert', years: '4+', description: 'Custom Components, JIT' },
+      { name: 'Bootstrap', icon: 'logos:bootstrap', level: 'Advanced', years: '6+', description: 'Custom Themes, Grid System' },
     ]
   },
   {
-    name: 'Styling & Design',
+    name: 'Tools & Platforms',
+    icon: Wrench,
     expanded: false,
+    color: 'green',
     skills: [
-      { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon', level: 'Expert', years: '4+' },
-      { name: 'Styled Components', icon: 'vscode-icons:file-type-styled', level: 'Advanced', years: '3+' },
-      { name: 'SASS/SCSS', icon: 'logos:sass', level: 'Advanced', years: '5+' },
-      { name: 'Material-UI', icon: 'logos:material-ui', level: 'Advanced', years: '3+' },
-    ]
-  },
-  {
-    name: 'Tools & Technologies',
-    expanded: false,
-    skills: [
-      { name: 'Git', icon: 'logos:git-icon', level: 'Expert', years: '8+' },
-      { name: 'Webpack', icon: 'logos:webpack', level: 'Advanced', years: '5+' },
-      { name: 'Vite', icon: 'logos:vitejs', level: 'Advanced', years: '2+' },
-      { name: 'Docker', icon: 'logos:docker-icon', level: 'Intermediate', years: '2+' },
-    ]
-  },
-  {
-    name: 'Cloud & Deployment',
-    expanded: false,
-    skills: [
-      { name: 'Vercel', icon: 'logos:vercel-icon', level: 'Expert', years: '4+' },
-      { name: 'Netlify', icon: 'logos:netlify-icon', level: 'Advanced', years: '3+' },
-      { name: 'AWS', icon: 'logos:aws', level: 'Intermediate', years: '2+' },
-      { name: 'Firebase', icon: 'logos:firebase', level: 'Advanced', years: '3+' },
+      { name: 'Git', icon: 'logos:git-icon', level: 'Expert', years: '8+', description: 'Branching, Merging, Workflows' },
+      { name: 'GitHub', icon: 'logos:github-icon', level: 'Expert', years: '8+', description: 'Actions, Pages, Collaboration' },
+      { name: 'Vercel', icon: 'logos:vercel-icon', level: 'Expert', years: '4+', description: 'Deployment, Edge Functions' },
+      { name: 'Netlify', icon: 'logos:netlify-icon', level: 'Advanced', years: '3+', description: 'JAMstack, Forms, Functions' },
+      { name: 'Firebase', icon: 'logos:firebase', level: 'Advanced', years: '3+', description: 'Auth, Firestore, Hosting' },
     ]
   }
 ]
@@ -94,39 +81,53 @@ export function SkillsContent() {
   const getLevelColor = (level) => {
     switch (level) {
       case 'Expert':
-        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+        return 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900 dark:text-emerald-200 border-emerald-300 dark:border-emerald-700'
       case 'Advanced':
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 border-blue-300 dark:border-blue-700'
       case 'Intermediate':
-        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+        return 'bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 border-amber-300 dark:border-amber-700'
       default:
-        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200'
+        return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200 border-gray-300 dark:border-gray-700'
     }
+  }
+
+  const getCategoryColor = (color) => {
+    const colors = {
+      blue: 'from-blue-500 to-blue-600',
+      purple: 'from-purple-500 to-purple-600',
+      green: 'from-green-500 to-green-600'
+    }
+    return colors[color] || colors.blue
   }
 
   const renderSkillCard = (skill) => (
     <Card
       key={skill.name}
-      className="p-6 magic-card interactive-hover cursor-pointer transition-all duration-300 hover:shadow-lg hover:scale-105"
+      className="group p-6 magic-card interactive-hover cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-105 border-2 hover:border-primary/50"
     >
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-start justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <Icon icon={skill.icon} className="w-8 h-8" />
+          <div className="p-2 bg-muted rounded-lg group-hover:bg-primary/10 transition-colors">
+            <Icon icon={skill.icon} className="w-8 h-8" />
+          </div>
           <div>
-            <h4 className="font-semibold">{skill.name}</h4>
+            <h4 className="font-semibold text-lg group-hover:text-primary transition-colors">{skill.name}</h4>
             <p className="text-sm text-muted-foreground">{skill.years} experience</p>
           </div>
         </div>
-        <Badge className={getLevelColor(skill.level)}>
+        <Badge className={`${getLevelColor(skill.level)} border`}>
           {skill.level}
         </Badge>
       </div>
-      <div className="w-full bg-muted rounded-full h-2">
+      
+      <p className="text-sm text-muted-foreground mb-4">{skill.description}</p>
+      
+      <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
         <div 
-          className={`h-2 rounded-full transition-all duration-500 ${
-            skill.level === 'Expert' ? 'bg-green-500 w-full' :
-            skill.level === 'Advanced' ? 'bg-blue-500 w-4/5' :
-            'bg-yellow-500 w-3/5'
+          className={`h-2 rounded-full transition-all duration-1000 bg-gradient-to-r ${
+            skill.level === 'Expert' ? 'from-emerald-500 to-emerald-600 w-full' :
+            skill.level === 'Advanced' ? 'from-blue-500 to-blue-600 w-4/5' :
+            'from-amber-500 to-amber-600 w-3/5'
           }`}
         ></div>
       </div>
@@ -142,39 +143,48 @@ export function SkillsContent() {
         <p className="text-lg text-muted-foreground mb-6">
           8+ years of professional experience across modern web technologies and frameworks.
         </p>
-        <div className="flex flex-wrap gap-2">
-          <Badge variant="outline">Senior Level</Badge>
-          <Badge variant="outline">Full-Stack Capable</Badge>
-          <Badge variant="outline">Architecture Design</Badge>
-          <Badge variant="outline">Team Leadership</Badge>
+        <div className="flex flex-wrap gap-3">
+          <Badge variant="outline" className="border-blue-500 text-blue-600 dark:text-blue-400">Senior Level</Badge>
+          <Badge variant="outline" className="border-purple-500 text-purple-600 dark:text-purple-400">Full-Stack Capable</Badge>
+          <Badge variant="outline" className="border-green-500 text-green-600 dark:text-green-400">Architecture Design</Badge>
+          <Badge variant="outline" className="border-orange-500 text-orange-600 dark:text-orange-400">Team Leadership</Badge>
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         {skillCategories.map((category, index) => {
           const isExpanded = expandedCategories.includes(category.name)
+          const IconComponent = category.icon
           
           return (
-            <div key={category.name} className="skill-category border border-border rounded-lg overflow-hidden magic-card">
+            <div key={category.name} className="skill-category border border-border rounded-xl overflow-hidden magic-card shadow-lg">
               <div
-                className="flex items-center justify-between p-6 bg-muted/30 cursor-pointer hover:bg-muted/50 transition-colors interactive-hover"
+                className={`flex items-center justify-between p-6 bg-gradient-to-r ${getCategoryColor(category.color)} text-white cursor-pointer hover:opacity-90 transition-all interactive-hover`}
                 onClick={() => toggleCategory(category.name)}
               >
+                <div className="flex items-center space-x-4">
+                  <div className="p-2 bg-white/20 rounded-lg">
+                    <IconComponent className="w-6 h-6" />
+                  </div>
+                  <div>
+                    <h2 className="text-xl font-semibold">{category.name}</h2>
+                    <p className="text-white/80 text-sm">{category.skills.length} technologies</p>
+                  </div>
+                </div>
                 <div className="flex items-center space-x-3">
-                  <h2 className="text-xl font-semibold">{category.name}</h2>
-                  <Badge variant="secondary">
+                  <Badge className="bg-white/20 text-white border-white/30">
                     {category.skills.length} skills
                   </Badge>
+                  {isExpanded ? (
+                    <ChevronDown className="w-5 h-5 transition-transform" />
+                  ) : (
+                    <ChevronRight className="w-5 h-5 transition-transform" />
+                  )}
                 </div>
-                {isExpanded ? (
-                  <ChevronDown className="w-5 h-5 text-muted-foreground transition-transform" />
-                ) : (
-                  <ChevronRight className="w-5 h-5 text-muted-foreground transition-transform" />
-                )}
               </div>
               
               {isExpanded && (
-                <div className="p-6">
+                <div className="p-6 bg-muted/30">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                     {category.skills.map(renderSkillCard)}
                   </div>
@@ -186,32 +196,50 @@ export function SkillsContent() {
       </div>
 
       {/* Experience Summary */}
-      <Card className="mt-12 p-8 magic-card bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20">
-        <h2 className="text-2xl font-bold mb-6">Professional Highlights</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Card className="mt-12 p-8 magic-card bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-950/20 dark:to-purple-950/20 border-2 border-primary/20">
+        <h2 className="text-2xl font-bold mb-6 text-center">Professional Highlights</h2>
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
           <div className="text-center">
-            <div className="text-3xl font-bold text-primary mb-2">8+</div>
-            <div className="text-sm text-muted-foreground">Years Experience</div>
+            <div className="text-4xl font-bold text-primary mb-2">8+</div>
+            <div className="text-sm text-muted-foreground font-medium">Years Experience</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-primary mb-2">50+</div>
-            <div className="text-sm text-muted-foreground">Projects Delivered</div>
+            <div className="text-4xl font-bold text-primary mb-2">50+</div>
+            <div className="text-sm text-muted-foreground font-medium">Projects Delivered</div>
           </div>
           <div className="text-center">
-            <div className="text-3xl font-bold text-primary mb-2">15+</div>
-            <div className="text-sm text-muted-foreground">Technologies Mastered</div>
+            <div className="text-4xl font-bold text-primary mb-2">15+</div>
+            <div className="text-sm text-muted-foreground font-medium">Technologies Mastered</div>
           </div>
         </div>
         
-        <div className="mt-8 p-6 bg-card rounded-lg border border-border">
+        <div className="p-6 bg-card rounded-lg border border-border">
           <h3 className="text-lg font-semibold mb-4">Senior Developer Capabilities</h3>
           <div className="grid md:grid-cols-2 gap-4 text-sm text-muted-foreground">
-            <div>• Architecture design and system planning</div>
-            <div>• Performance optimization and monitoring</div>
-            <div>• Code review and mentoring junior developers</div>
-            <div>• Cross-functional team collaboration</div>
-            <div>• Technical decision making and strategy</div>
-            <div>• Modern development workflow implementation</div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-primary rounded-full"></div>
+              <span>Architecture design and system planning</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-primary rounded-full"></div>
+              <span>Performance optimization and monitoring</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-primary rounded-full"></div>
+              <span>Code review and mentoring junior developers</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-primary rounded-full"></div>
+              <span>Cross-functional team collaboration</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-primary rounded-full"></div>
+              <span>Technical decision making and strategy</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <div className="w-2 h-2 bg-primary rounded-full"></div>
+              <span>Modern development workflow implementation</span>
+            </div>
           </div>
         </div>
       </Card>
