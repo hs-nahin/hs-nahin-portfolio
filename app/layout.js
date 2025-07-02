@@ -1,7 +1,6 @@
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { ThemeProvider } from '@/components/theme-provider'
-import { Particles } from '@/components/ui/particles'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -18,22 +17,22 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata = {
-  title: 'Hasnat Shahriyar - Senior Frontend Developer',
-  description: '8+ years of experience crafting exceptional web experiences with React, Next.js, and TypeScript. Senior Frontend Developer specializing in modern web technologies.',
-  keywords: 'Frontend Developer, React, Next.js, TypeScript, JavaScript, Web Development',
+  title: 'Hasnat Shahriyar - Senior Frontend Developer & UI Wizard',
+  description: '8+ years of experience crafting magical web experiences with React, Next.js, and TypeScript. Senior Frontend Developer specializing in modern web technologies and extraordinary user interfaces.',
+  keywords: 'Frontend Developer, React, Next.js, TypeScript, JavaScript, Web Development, UI/UX, Senior Developer',
   authors: [{ name: 'Hasnat Shahriyar' }],
   creator: 'Hasnat Shahriyar',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    title: 'Hasnat Shahriyar - Senior Frontend Developer',
-    description: '8+ years of experience crafting exceptional web experiences',
+    title: 'Hasnat Shahriyar - Senior Frontend Developer & UI Wizard',
+    description: '8+ years of experience crafting magical web experiences',
     siteName: 'Hasnat Shahriyar Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hasnat Shahriyar - Senior Frontend Developer',
-    description: '8+ years of experience crafting exceptional web experiences',
+    title: 'Hasnat Shahriyar - Senior Frontend Developer & UI Wizard',
+    description: '8+ years of experience crafting magical web experiences',
     creator: '@hs_nahin',
   },
   robots: {
@@ -52,11 +51,10 @@ export default function RootLayout({ children }) {
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <Particles />
           {children}
         </ThemeProvider>
       </body>

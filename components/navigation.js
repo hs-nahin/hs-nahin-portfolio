@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Menu, X, Code2, Github, Linkedin, Mail } from 'lucide-react'
+import { Menu, X, Sparkles, Github, Linkedin, Mail, Twitter } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { gsap } from 'gsap'
@@ -30,8 +30,8 @@ export function Navigation({ activeSection }) {
   useEffect(() => {
     if (isOpen) {
       gsap.fromTo('.mobile-menu-item', 
-        { opacity: 0, x: -50 },
-        { opacity: 1, x: 0, duration: 0.3, stagger: 0.1, ease: 'power2.out' }
+        { opacity: 0, x: -50, rotateY: -90 },
+        { opacity: 1, x: 0, rotateY: 0, duration: 0.6, stagger: 0.1, ease: 'back.out(1.7)' }
       )
     }
   }, [isOpen])
@@ -46,69 +46,82 @@ export function Navigation({ activeSection }) {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 ${
         scrolled 
-          ? 'bg-background/80 backdrop-blur-xl border-b border-border/50 shadow-lg' 
+          ? 'bg-slate-950/80 backdrop-blur-2xl border-b border-purple-500/20 shadow-2xl shadow-purple-500/10' 
           : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
-            {/* Logo */}
-            <div className="flex items-center space-x-3 group cursor-pointer" onClick={() => scrollToSection('hero')}>
+            {/* Magical Logo */}
+            <div className="flex items-center space-x-4 group cursor-pointer" onClick={() => scrollToSection('hero')}>
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
-                <div className="relative w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center">
-                  <Code2 className="w-6 h-6 text-white" />
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 rounded-2xl blur-xl opacity-0 group-hover:opacity-60 transition-all duration-500"></div>
+                <div className="relative w-14 h-14 bg-gradient-to-br from-purple-600 via-pink-600 to-blue-600 rounded-2xl flex items-center justify-center shadow-2xl shadow-purple-500/25 group-hover:shadow-purple-500/50 transition-all duration-500 group-hover:scale-110">
+                  <Sparkles className="w-7 h-7 text-white animate-pulse" />
                 </div>
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-xl font-bold gradient-text">Hasnat Shahriyar</h1>
-                <p className="text-xs text-muted-foreground">Senior Developer</p>
+                <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
+                  Hasnat Shahriyar
+                </h1>
+                <p className="text-sm text-purple-300/80 font-medium">Senior Developer</p>
               </div>
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-2">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`relative px-4 py-2 text-sm font-medium transition-all duration-300 hover:text-primary ${
-                    activeSection === item.id ? 'text-primary' : 'text-muted-foreground'
+                  className={`relative px-6 py-3 text-sm font-medium transition-all duration-500 rounded-xl group ${
+                    activeSection === item.id 
+                      ? 'text-white bg-gradient-to-r from-purple-600/20 to-pink-600/20 border border-purple-500/30' 
+                      : 'text-purple-200/80 hover:text-white hover:bg-purple-600/10'
                   }`}
                 >
-                  {item.label}
+                  <span className="relative z-10">{item.label}</span>
                   {activeSection === item.id && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-600/30 to-pink-600/30 rounded-xl blur-sm"></div>
                   )}
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/10 group-hover:to-pink-600/10 rounded-xl transition-all duration-500"></div>
                 </button>
               ))}
             </div>
 
             {/* Social Links & Theme Toggle */}
             <div className="flex items-center space-x-4">
-              <div className="hidden md:flex items-center space-x-3">
+              <div className="hidden md:flex items-center space-x-2">
                 <a
                   href="https://github.com/hs-nahin"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg hover:bg-primary/10 transition-colors duration-300"
+                  className="p-3 rounded-xl bg-slate-800/50 hover:bg-purple-600/20 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300 group"
                 >
-                  <Github className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                  <Github className="w-5 h-5 text-purple-300 group-hover:text-white transition-colors" />
                 </a>
                 <a
                   href="https://linkedin.com/in/hasnat-shahriyar"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2 rounded-lg hover:bg-primary/10 transition-colors duration-300"
+                  className="p-3 rounded-xl bg-slate-800/50 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300 group"
                 >
-                  <Linkedin className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                  <Linkedin className="w-5 h-5 text-blue-300 group-hover:text-white transition-colors" />
+                </a>
+                <a
+                  href="https://twitter.com/hs_nahin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-xl bg-slate-800/50 hover:bg-cyan-600/20 border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300 group"
+                >
+                  <Twitter className="w-5 h-5 text-cyan-300 group-hover:text-white transition-colors" />
                 </a>
                 <a
                   href="mailto:hs.nahin430@gmail.com"
-                  className="p-2 rounded-lg hover:bg-primary/10 transition-colors duration-300"
+                  className="p-3 rounded-xl bg-slate-800/50 hover:bg-pink-600/20 border border-pink-500/20 hover:border-pink-400/40 transition-all duration-300 group"
                 >
-                  <Mail className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
+                  <Mail className="w-5 h-5 text-pink-300 group-hover:text-white transition-colors" />
                 </a>
               </div>
               
@@ -118,10 +131,10 @@ export function Navigation({ activeSection }) {
               <Button
                 variant="ghost"
                 size="sm"
-                className="lg:hidden"
+                className="lg:hidden p-3 rounded-xl bg-slate-800/50 border border-purple-500/20 hover:border-purple-400/40 hover:bg-purple-600/20"
                 onClick={() => setIsOpen(!isOpen)}
               >
-                {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                {isOpen ? <X className="w-5 h-5 text-purple-300" /> : <Menu className="w-5 h-5 text-purple-300" />}
               </Button>
             </div>
           </div>
@@ -129,44 +142,52 @@ export function Navigation({ activeSection }) {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border/50 shadow-xl">
+          <div className="lg:hidden absolute top-full left-0 right-0 bg-slate-950/95 backdrop-blur-2xl border-b border-purple-500/20 shadow-2xl shadow-purple-500/10">
             <div className="px-6 py-8 space-y-6">
               {navItems.map((item, index) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`mobile-menu-item block w-full text-left px-4 py-3 text-lg font-medium rounded-xl transition-all duration-300 ${
+                  className={`mobile-menu-item block w-full text-left px-6 py-4 text-lg font-medium rounded-2xl transition-all duration-500 ${
                     activeSection === item.id 
-                      ? 'text-primary bg-primary/10' 
-                      : 'text-muted-foreground hover:text-primary hover:bg-primary/5'
+                      ? 'text-white bg-gradient-to-r from-purple-600/30 to-pink-600/30 border border-purple-500/30' 
+                      : 'text-purple-200/80 hover:text-white hover:bg-purple-600/20 border border-transparent hover:border-purple-500/20'
                   }`}
                 >
                   {item.label}
                 </button>
               ))}
               
-              <div className="flex items-center justify-center space-x-6 pt-6 border-t border-border/50">
+              <div className="flex items-center justify-center space-x-4 pt-6 border-t border-purple-500/20">
                 <a
                   href="https://github.com/hs-nahin"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-primary/10 hover:bg-primary/20 transition-colors duration-300"
+                  className="p-4 rounded-2xl bg-slate-800/50 hover:bg-purple-600/20 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-300"
                 >
-                  <Github className="w-6 h-6 text-primary" />
+                  <Github className="w-6 h-6 text-purple-300" />
                 </a>
                 <a
                   href="https://linkedin.com/in/hasnat-shahriyar"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-3 rounded-xl bg-primary/10 hover:bg-primary/20 transition-colors duration-300"
+                  className="p-4 rounded-2xl bg-slate-800/50 hover:bg-blue-600/20 border border-blue-500/20 hover:border-blue-400/40 transition-all duration-300"
                 >
-                  <Linkedin className="w-6 h-6 text-primary" />
+                  <Linkedin className="w-6 h-6 text-blue-300" />
+                </a>
+                <a
+                  href="https://twitter.com/hs_nahin"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-4 rounded-2xl bg-slate-800/50 hover:bg-cyan-600/20 border border-cyan-500/20 hover:border-cyan-400/40 transition-all duration-300"
+                >
+                  <Twitter className="w-6 h-6 text-cyan-300" />
                 </a>
                 <a
                   href="mailto:hs.nahin430@gmail.com"
-                  className="p-3 rounded-xl bg-primary/10 hover:bg-primary/20 transition-colors duration-300"
+                  className="p-4 rounded-2xl bg-slate-800/50 hover:bg-pink-600/20 border border-pink-500/20 hover:border-pink-400/40 transition-all duration-300"
                 >
-                  <Mail className="w-6 h-6 text-primary" />
+                  <Mail className="w-6 h-6 text-pink-300" />
                 </a>
               </div>
             </div>
