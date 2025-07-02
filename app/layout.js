@@ -17,22 +17,22 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata = {
-  title: 'Hasnat Shahriyar - Senior Frontend Developer & UI Wizard',
-  description: '8+ years of experience crafting magical web experiences with React, Next.js, and TypeScript. Senior Frontend Developer specializing in modern web technologies and extraordinary user interfaces.',
-  keywords: 'Frontend Developer, React, Next.js, TypeScript, JavaScript, Web Development, UI/UX, Senior Developer',
+  title: 'Hasnat Shahriyar - Senior Frontend Developer',
+  description: '10+ years of experience in modern web development. Expert in React, Next.js, TypeScript, and advanced frontend technologies.',
+  keywords: 'Senior Frontend Developer, React Expert, Next.js, TypeScript, JavaScript, Web Development, UI/UX, Full Stack Developer',
   authors: [{ name: 'Hasnat Shahriyar' }],
   creator: 'Hasnat Shahriyar',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    title: 'Hasnat Shahriyar - Senior Frontend Developer & UI Wizard',
-    description: '8+ years of experience crafting magical web experiences',
+    title: 'Hasnat Shahriyar - Senior Frontend Developer',
+    description: '10+ years of experience in modern web development',
     siteName: 'Hasnat Shahriyar Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hasnat Shahriyar - Senior Frontend Developer & UI Wizard',
-    description: '8+ years of experience crafting magical web experiences',
+    title: 'Hasnat Shahriyar - Senior Frontend Developer',
+    description: '10+ years of experience in modern web development',
     creator: '@hs_nahin',
   },
   robots: {
