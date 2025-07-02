@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { FileExplorer } from '@/components/file-explorer'
 import { ContentArea } from '@/components/content-area'
+import { FileExplorer } from '@/components/file-explorer'
 import { StatusBar } from '@/components/status-bar'
 import { ParticleSystem } from '@/components/ui/particle-system'
 import { gsap } from 'gsap'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
   const [activeFile, setActiveFile] = useState('about.md')
@@ -47,7 +47,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-hidden">
+    <div className="min-h-screen bg-background text-foreground overflow-auto">
       <ParticleSystem />
       
       <div className="terminal-container h-screen flex flex-col border border-border bg-card/50 backdrop-blur-sm">

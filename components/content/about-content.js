@@ -1,10 +1,10 @@
 'use client'
 
-import { useEffect } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
-import { MapPin, Calendar, Award, Coffee } from 'lucide-react'
 import { gsap } from 'gsap'
+import { Award, Calendar, Coffee, MapPin } from 'lucide-react'
+import { useEffect } from 'react'
 
 export function AboutContent() {
   useEffect(() => {
@@ -31,7 +31,7 @@ export function AboutContent() {
             </div>
             <div>
               <h1 className="text-4xl font-bold gradient-text mb-2">Hasnat Shahriyar</h1>
-              <p className="text-xl text-muted-foreground">Senior Frontend Developer</p>
+              <p className="text-xl text-muted-foreground">Frontend Developer</p>
               <div className="flex items-center space-x-4 mt-2 text-sm text-muted-foreground">
                 <div className="flex items-center space-x-1">
                   <MapPin className="w-4 h-4" />
@@ -39,7 +39,7 @@ export function AboutContent() {
                 </div>
                 <div className="flex items-center space-x-1">
                   <Calendar className="w-4 h-4" />
-                  <span>10+ Years Experience</span>
+                  <span>1+ Years Experience</span>
                 </div>
               </div>
             </div>

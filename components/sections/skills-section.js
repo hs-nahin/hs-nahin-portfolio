@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { ChevronDown, ChevronRight, Sparkles, Code2, Palette, Wrench } from 'lucide-react'
-import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
 import { Icon } from '@iconify/react'
 import { gsap } from 'gsap'
+import { ChevronDown, ChevronRight, Code2, Palette, Sparkles, Wrench } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 const skillCategories = [
   {
@@ -51,7 +51,8 @@ const skillCategories = [
 ]
 
 export function SkillsSection() {
-  const [expandedCategories, setExpandedCategories] = useState(['Frontend Technologies', 'Styling & Design'])
+const [expandedCategories, setExpandedCategories] = useState(['Frontend Technologies', 'Styling & Design'])
+
 
   useEffect(() => {
     gsap.fromTo('.skill-category', 

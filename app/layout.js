@@ -1,6 +1,6 @@
+import { ThemeProvider } from '@/components/theme-provider'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -17,22 +17,22 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata = {
-  title: 'Hasnat Shahriyar - Senior Frontend Developer',
-  description: '10+ years of experience in modern web development. Expert in React, Next.js, TypeScript, and advanced frontend technologies.',
-  keywords: 'Senior Frontend Developer, React Expert, Next.js, TypeScript, JavaScript, Web Development, UI/UX, Full Stack Developer',
+  title: 'Hasnat Shahriyar - Frontend Developer',
+  description: '1+ years of experience in modern web development. Expert in React, Next.js, TypeScript, and advanced frontend technologies.',
+  keywords: 'Frontend Developer, React Expert, Next.js, TypeScript, JavaScript, Web Development, UI/UX, Full Stack Developer',
   authors: [{ name: 'Hasnat Shahriyar' }],
   creator: 'Hasnat Shahriyar',
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    title: 'Hasnat Shahriyar - Senior Frontend Developer',
-    description: '10+ years of experience in modern web development',
+    title: 'Hasnat Shahriyar - Frontend Developer',
+    description: '1+ years of experience in modern web development',
     siteName: 'Hasnat Shahriyar Portfolio',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hasnat Shahriyar - Senior Frontend Developer',
-    description: '10+ years of experience in modern web development',
+    title: 'Hasnat Shahriyar - Frontend Developer',
+    description: '1+ years of experience in modern web development',
     creator: '@hs_nahin',
   },
   robots: {
