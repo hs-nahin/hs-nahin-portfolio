@@ -1,23 +1,23 @@
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 interface Particle {
-  id: number
-  x: number
-  y: number
-  size: number
-  speedX: number
-  speedY: number
-  opacity: number
+  id: number;
+  x: number;
+  y: number;
+  size: number;
+  speedX: number;
+  speedY: number;
+  opacity: number;
 }
 
 export function Particles() {
-  const [particles, setParticles] = useState<Particle[]>([])
+  const [particles, setParticles] = useState<Particle[]>([]);
 
   useEffect(() => {
     const createParticles = () => {
-      const newParticles: Particle[] = []
+      const newParticles: Particle[] = [];
       for (let i = 0; i < 50; i++) {
         newParticles.push({
           id: i,
@@ -27,30 +27,45 @@ export function Particles() {
           speedX: (Math.random() - 0.5) * 0.5,
           speedY: (Math.random() - 0.5) * 0.5,
           opacity: Math.random() * 0.5 + 0.1,
-        })
+        });
       }
-      setParticles(newParticles)
-    }
+      setParticles(newParticles);
+    };
 
-    createParticles()
+    createParticles();
 
     const animateParticles = () => {
-      setParticles(prev => prev.map(particle => ({
-        ...particle,
-        x: particle.x + particle.speedX,
-        y: particle.y + particle.speedY,
-        x: particle.x > window.innerWidth ? 0 : particle.x < 0 ? window.innerWidth : particle.x,
-        y: particle.y > window.innerHeight ? 0 : particle.y < 0 ? window.innerHeight : particle.y,
-      })))
-    }
+      setParticles((prev) =>
+        prev.map((particle) => {
+          const newX = particle.x + particle.speedX;
+          const newY = particle.y + particle.speedY;
 
-    const interval = setInterval(animateParticles, 50)
-    return () => clearInterval(interval)
-  }, [])
+          return {
+            ...particle,
+            x:
+              newX > window.innerWidth
+                ? 0
+                : newX < 0
+                ? window.innerWidth
+                : newX,
+            y:
+              newY > window.innerHeight
+                ? 0
+                : newY < 0
+                ? window.innerHeight
+                : newY,
+          };
+        })
+      );
+    };
+
+    const interval = setInterval(animateParticles, 50);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="particles-bg">
-      {particles.map(particle => (
+      {particles.map((particle) => (
         <div
           key={particle.id}
           className="absolute rounded-full bg-primary/20"
@@ -64,5 +79,5 @@ export function Particles() {
         />
       ))}
     </div>
-  )
+  );
 }
