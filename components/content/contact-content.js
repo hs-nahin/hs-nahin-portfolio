@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Card } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Badge } from '@/components/ui/badge'
-import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send, CheckCircle } from 'lucide-react'
 import { gsap } from 'gsap'
+import { CheckCircle, Github, Linkedin, Mail, MapPin, Phone, Send, Twitter } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 const contactInfo = [
   {
@@ -224,30 +224,33 @@ export function ContactContent() {
               </div>
             </Card>
 
-            {/* Social Links */}
-            <Card className="contact-section p-6 professional-hover">
-              <h2 className="text-xl font-semibold mb-6 flex items-center">
-                <span className="text-primary mr-2">//</span>
-                Connect Online
-              </h2>
-              <div className="grid grid-cols-3 gap-3">
-                {socialLinks.map((social) => {
-                  const IconComponent = social.icon
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex flex-col items-center p-4 rounded-lg hover:bg-muted/50 transition-colors group"
-                    >
-                      <IconComponent className="w-6 h-6 mb-2 group-hover:text-primary transition-colors" />
-                      <span className="text-sm font-medium">{social.label}</span>
-                    </a>
-                  )
-                })}
-              </div>
-            </Card>
+{/* Social Links */}
+<Card className="contact-section p-6 professional-hover">
+  <h2 className="text-xl font-semibold mb-6 flex items-center">
+    <span className="text-primary mr-2">//</span>
+    Connect Online
+  </h2>
+  <div className="grid grid-cols-3 gap-3">
+    {socialLinks.map((social) => {
+      const IconComponent = social.icon
+      return (
+        <a
+          key={social.label}
+          href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center p-4 rounded-lg border border-transparent hover:border-primary hover:bg-primary/20 transition-colors group professional-hover cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
+        >
+          <IconComponent className="w-6 h-6 mb-2 group-hover:text-primary transition-colors" />
+          <span className="text-sm font-medium group-hover:text-primary transition-colors">
+            {social.label}
+          </span>
+        </a>
+      )
+    })}
+  </div>
+</Card>
+
 
             {/* Availability */}
             <Card className="contact-section p-6 professional-hover">
