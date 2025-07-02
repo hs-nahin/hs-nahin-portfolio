@@ -63,7 +63,7 @@ export function ContentArea({ activeFile, className }) {
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-hidden">
         <div className={cn(
           'content-wrapper h-full',
           isTransitioning && 'pointer-events-none'
