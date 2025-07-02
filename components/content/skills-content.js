@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Progress } from '@/components/ui/progress'
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import { Icon } from '@iconify/react'
 import { cn } from '@/lib/utils'
@@ -14,31 +13,31 @@ const skillCategories = [
     name: 'Frontend Technologies',
     expanded: true,
     skills: [
-      { name: 'HTML5', icon: 'vscode-icons:file-type-html', level: 95, years: '10+' },
-      { name: 'CSS3', icon: 'vscode-icons:file-type-css', level: 95, years: '10+' },
-      { name: 'JavaScript', icon: 'logos:javascript', level: 95, years: '10+' },
-      { name: 'TypeScript', icon: 'logos:typescript-icon', level: 90, years: '5+' },
-      { name: 'React.js', icon: 'logos:react', level: 95, years: '7+' },
-      { name: 'Next.js', icon: 'logos:nextjs-icon', level: 90, years: '4+' },
+      { name: 'HTML5', icon: 'vscode-icons:file-type-html', level: 'Expert', years: '10+' },
+      { name: 'CSS3', icon: 'vscode-icons:file-type-css', level: 'Expert', years: '10+' },
+      { name: 'JavaScript', icon: 'logos:javascript', level: 'Expert', years: '10+' },
+      { name: 'TypeScript', icon: 'logos:typescript-icon', level: 'Expert', years: '5+' },
+      { name: 'React.js', icon: 'logos:react', level: 'Expert', years: '7+' },
+      { name: 'Next.js', icon: 'logos:nextjs-icon', level: 'Expert', years: '4+' },
     ]
   },
   {
     name: 'Styling & Frameworks',
     expanded: true,
     skills: [
-      { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon', level: 95, years: '4+' },
-      { name: 'Bootstrap', icon: 'logos:bootstrap', level: 85, years: '6+' },
+      { name: 'Tailwind CSS', icon: 'logos:tailwindcss-icon', level: 'Expert', years: '4+' },
+      { name: 'Bootstrap', icon: 'logos:bootstrap', level: 'Advanced', years: '6+' },
     ]
   },
   {
     name: 'Tools & Deployment',
     expanded: false,
     skills: [
-      { name: 'Git', icon: 'logos:git-icon', level: 95, years: '10+' },
-      { name: 'GitHub', icon: 'logos:github-icon', level: 90, years: '8+' },
-      { name: 'Vercel', icon: 'logos:vercel-icon', level: 90, years: '3+' },
-      { name: 'Netlify', icon: 'logos:netlify-icon', level: 85, years: '4+' },
-      { name: 'Firebase', icon: 'logos:firebase', level: 80, years: '3+' },
+      { name: 'Git', icon: 'logos:git-icon', level: 'Expert', years: '10+' },
+      { name: 'GitHub', icon: 'logos:github-icon', level: 'Expert', years: '8+' },
+      { name: 'Vercel', icon: 'logos:vercel-icon', level: 'Expert', years: '3+' },
+      { name: 'Netlify', icon: 'logos:netlify-icon', level: 'Advanced', years: '4+' },
+      { name: 'Firebase', icon: 'logos:firebase', level: 'Advanced', years: '3+' },
     ]
   }
 ]
@@ -68,14 +67,13 @@ export function SkillsContent() {
   }
 
   const getLevelColor = (level) => {
-    if (level >= 90) return 'bg-green-500'
-    if (level >= 80) return 'bg-blue-500'
-    if (level >= 70) return 'bg-yellow-500'
+    if (level === 'Expert') return 'bg-green-500'
+    if (level === 'Advanced') return 'bg-blue-500'
     return 'bg-gray-500'
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-8 max-w-4xl mx-auto h-full overflow-y-auto">
       <div className="mb-8">
         <h1 className="text-3xl font-bold gradient-text mb-4">Technical Skills</h1>
         <p className="text-muted-foreground text-lg">
@@ -83,7 +81,7 @@ export function SkillsContent() {
         </p>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-6 mb-8">
         {skillCategories.map((category) => {
           const isExpanded = expandedCategories.includes(category.name)
           
@@ -120,19 +118,13 @@ export function SkillsContent() {
                                 <Badge variant="outline" className="text-xs">
                                   {skill.years} years
                                 </Badge>
-                                <span className="text-sm text-muted-foreground">
-                                  {skill.level}%
-                                </span>
-                              </div>
-                            </div>
-                            <div className="w-full bg-muted rounded-full h-2">
-                              <div
-                                className={cn(
-                                  'h-2 rounded-full transition-all duration-500',
+                                <Badge className={cn(
+                                  'text-xs text-white',
                                   getLevelColor(skill.level)
-                                )}
-                                style={{ width: `${skill.level}%` }}
-                              />
+                                )}>
+                                  {skill.level}
+                                </Badge>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -147,7 +139,7 @@ export function SkillsContent() {
       </div>
 
       {/* Summary */}
-      <Card className="mt-8 p-6 professional-hover">
+      <Card className="p-6 professional-hover">
         <h2 className="text-xl font-semibold mb-4 flex items-center">
           <span className="text-primary mr-2">//</span>
           Expertise Summary

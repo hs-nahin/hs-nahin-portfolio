@@ -21,7 +21,7 @@ export function AboutContent() {
   }, [])
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-8 max-w-4xl mx-auto h-full overflow-y-auto">
       {/* Header */}
       <div className="about-section mb-12">
         <div className="flex items-center space-x-4 mb-6">
@@ -103,7 +103,7 @@ export function AboutContent() {
       </div>
 
       {/* Current Focus */}
-      <div className="about-section">
+      <div className="about-section mb-8">
         <h2 className="text-2xl font-semibold mb-6 flex items-center">
           <span className="text-primary mr-2">//</span>
           Current Focus

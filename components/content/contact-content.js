@@ -83,7 +83,7 @@ export function ContactContent() {
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="p-8 max-w-4xl mx-auto h-full overflow-y-auto">
       <div className="contact-section mb-8">
         <h1 className="text-3xl font-bold gradient-text mb-4">Get In Touch</h1>
         <p className="text-muted-foreground text-lg">
@@ -91,7 +91,7 @@ export function ContactContent() {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-2 gap-8">
+      <div className="grid lg:grid-cols-2 gap-8 mb-8">
         {/* Contact Form */}
         <Card className="contact-section p-6 professional-hover">
           <h2 className="text-xl font-semibold mb-6 flex items-center">

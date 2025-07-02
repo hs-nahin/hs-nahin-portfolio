@@ -57,7 +57,7 @@ export function ProjectsContent() {
   }, [])
 
   return (
-    <div className="p-8 max-w-6xl mx-auto">
+    <div className="p-8 max-w-6xl mx-auto h-full overflow-y-auto">
       <div className="mb-8">
         <h1 className="text-3xl font-bold gradient-text mb-4">Featured Projects</h1>
         <p className="text-muted-foreground text-lg">
@@ -65,7 +65,7 @@ export function ProjectsContent() {
         </p>
       </div>
 
-      <div className="space-y-8">
+      <div className="space-y-8 mb-8">
         {projects.map((project, index) => (
           <Card key={project.title} className="project-card professional-hover overflow-hidden">
             <div className="grid lg:grid-cols-2 gap-0">
@@ -173,7 +173,7 @@ export function ProjectsContent() {
       </div>
 
       {/* Project Summary */}
-      <Card className="mt-8 p-6 professional-hover">
+      <Card className="p-6 professional-hover">
         <h2 className="text-xl font-semibold mb-4 flex items-center">
           <span className="text-primary mr-2">//</span>
           Project Portfolio Summary
