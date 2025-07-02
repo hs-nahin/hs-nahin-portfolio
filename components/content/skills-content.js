@@ -1,12 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { Card } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { ChevronDown, ChevronRight } from 'lucide-react'
+import { Card } from '@/components/ui/card'
 import { Icon } from '@iconify/react'
-import { cn } from '@/lib/utils'
 import { gsap } from 'gsap'
+import { ChevronDown, ChevronRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
 
 const skillCategories = [
   {
@@ -55,7 +54,7 @@ const skillCategories = [
 ]
 
 export function SkillsContent() {
-  const [expandedCategories, setExpandedCategories] = useState(['Frontend Technologies', 'Styling & Frameworks', 'Backend Technologies', 'Tools & Deployment'])
+  const [expandedCategories, setExpandedCategories] = useState(skillCategories.map(c => c.name))
 
   useEffect(() => {
     gsap.fromTo('.skill-category', 
@@ -84,14 +83,15 @@ export function SkillsContent() {
         <div className="mb-8">
           <h1 className="text-3xl font-bold gradient-text mb-4">Technical Skills</h1>
           <p className="text-muted-foreground text-lg">
-            A comprehensive overview of my technical expertise built over 10+ years of professional development.
+            A hands-on overview of the technologies I’ve been learning and applying through practical projects. 
+            My focus is on mastering frontend development with modern tools and clean coding practices.
           </p>
         </div>
 
         <div className="space-y-6 mb-8">
           {skillCategories.map((category) => {
             const isExpanded = expandedCategories.includes(category.name)
-            
+
             return (
               <Card key={category.name} className="skill-category professional-hover">
                 <div
@@ -110,7 +110,7 @@ export function SkillsContent() {
                     <Badge variant="secondary">{category.skills.length} skills</Badge>
                   </div>
                 </div>
-                
+
                 {isExpanded && (
                   <div className="px-6 pb-6">
                     <div className="grid md:grid-cols-2 gap-4">
@@ -138,16 +138,16 @@ export function SkillsContent() {
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">10+</div>
-              <div className="text-sm text-muted-foreground">Years Experience</div>
-            </div>
-            <div className="text-center">
               <div className="text-3xl font-bold text-primary mb-2">20+</div>
-              <div className="text-sm text-muted-foreground">Technologies</div>
+              <div className="text-sm text-muted-foreground">Technologies Explored</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">50+</div>
-              <div className="text-sm text-muted-foreground">Projects Delivered</div>
+              <div className="text-3xl font-bold text-primary mb-2">10+</div>
+              <div className="text-sm text-muted-foreground">Personal Projects</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-primary mb-2">2024</div>
+              <div className="text-sm text-muted-foreground">Started Journey</div>
             </div>
           </div>
         </Card>

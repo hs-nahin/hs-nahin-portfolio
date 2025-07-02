@@ -59,18 +59,18 @@ export default function Home() {
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
             </div>
             <span className="text-sm font-mono text-muted-foreground ml-4">
-              hasnat-shahriyar-portfolio
+              hasnat-shahriyar.dev
             </span>
           </div>
           <div className="text-xs text-muted-foreground font-mono">
-            Senior Developer • 10+ Years Experience
+            Frontend Developer • React | Tailwind | Next.js
           </div>
         </div>
 
-        {/* Main Content + Scrollable area */}
+        {/* Main Content */}
         <div
           className="flex flex-1 overflow-hidden"
-          style={{ height: 'calc(100vh - 48px - 36px)' }} // header + footer height
+          style={{ height: 'calc(100vh - 48px - 36px)' }}
         >
           <FileExplorer
             activeFile={activeFile}
@@ -84,7 +84,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Fixed Status Bar */}
+      {/* Footer / Status Bar */}
       <StatusBar
         activeFile={activeFile}
         className="status-bar"

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap");
 
 @layer base {
   :root {
@@ -55,15 +55,15 @@
   * {
     @apply border-border;
   }
-  
+
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: "Inter", system-ui, -apple-system, sans-serif;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
-  
+
   .font-mono {
-    font-family: 'JetBrains Mono', 'Consolas', monospace;
+    font-family: "JetBrains Mono", "Consolas", monospace;
   }
 }
 
@@ -98,8 +98,14 @@
 
 /* Terminal cursor animation */
 @keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  0%,
+  50% {
+    opacity: 1;
+  }
+  51%,
+  100% {
+    opacity: 0;
+  }
 }
 
 .terminal-cursor {
@@ -113,8 +119,12 @@
 
 /* Shine effect */
 @keyframes shine {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .shine-effect {
@@ -123,7 +133,7 @@
 }
 
 .shine-effect::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -145,7 +155,11 @@
 
 /* Gradient text */
 .gradient-text {
-  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary) / 0.8));
+  background: linear-gradient(
+    135deg,
+    hsl(var(--primary)),
+    hsl(var(--primary) / 0.8)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -199,8 +213,12 @@
 
 /* Typing animation */
 @keyframes typing {
-  from { width: 0; }
-  to { width: 100%; }
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 .typing-animation {
@@ -230,8 +248,13 @@
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(180deg); }
+  0%,
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(180deg);
+  }
 }
 
 /* Professional hover effects */
@@ -241,7 +264,7 @@
 }
 
 .professional-hover::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(135deg, hsl(var(--primary) / 0.1), transparent);
@@ -260,30 +283,50 @@
 }
 
 /* Code syntax highlighting */
-.syntax-keyword { color: #ff79c6; }
-.syntax-string { color: #f1fa8c; }
-.syntax-comment { color: #6272a4; }
-.syntax-function { color: #50fa7b; }
-.syntax-variable { color: #8be9fd; }
+.syntax-keyword {
+  color: #ff79c6;
+}
+.syntax-string {
+  color: #f1fa8c;
+}
+.syntax-comment {
+  color: #6272a4;
+}
+.syntax-function {
+  color: #50fa7b;
+}
+.syntax-variable {
+  color: #8be9fd;
+}
 
 /* Terminal prompt */
 .terminal-prompt::before {
-  content: '❯ ';
+  content: "❯ ";
   color: hsl(var(--primary));
   font-weight: 600;
 }
 
 /* Loading states */
 .loading-dots::after {
-  content: '';
+  content: "";
   animation: loading-dots 1.5s infinite;
 }
 
 @keyframes loading-dots {
-  0%, 20% { content: ''; }
-  40% { content: '.'; }
-  60% { content: '..'; }
-  80%, 100% { content: '...'; }
+  0%,
+  20% {
+    content: "";
+  }
+  40% {
+    content: ".";
+  }
+  60% {
+    content: "..";
+  }
+  80%,
+  100% {
+    content: "...";
+  }
 }
 
 /* Responsive design */
@@ -291,7 +334,7 @@
   .glass-effect {
     backdrop-filter: blur(5px);
   }
-  
+
   .professional-hover:hover {
     transform: none;
   }
@@ -299,7 +342,9 @@
 
 /* Accessibility */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

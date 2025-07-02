@@ -1,10 +1,11 @@
 'use client'
 
-import { CheckCircle, GitBranch, Wifi } from 'lucide-react'
+import { CheckCircle, ChevronDown, ChevronUp, GitBranch, Wifi } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export function StatusBar({ activeFile, className = '' }) {
   const [time, setTime] = useState(new Date())
+  const [collapsed, setCollapsed] = useState(true)
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000)
@@ -18,42 +19,61 @@ export function StatusBar({ activeFile, className = '' }) {
       '.jsx': 'React JSX',
       '.tsx': 'TypeScript React',
     }
-    
+
     const ext = filename.includes('.') ? `.${filename.split('.').pop()}` : ''
     return extensions[ext] || 'File'
   }
 
   return (
-    <div
-      className={`fixed bottom-0 left-0 right-0 flex items-center justify-between px-4 py-1 bg-primary text-primary-foreground text-xs font-mono backdrop-blur-sm border-t border-border z-50 ${className}`}
-      style={{ height: '36px' }} // fixed height to control layout
-    >
-      <div className="flex items-center space-x-4">
-        <div className="flex items-center space-x-1">
-          <GitBranch className="w-3 h-3" />
-          <span>main</span>
-        </div>
-
-        <div className="flex items-center space-x-1">
-          <CheckCircle className="w-3 h-3" />
-          <span>No issues</span>
-        </div>
-
-        <div>
-          {getFileInfo(activeFile)}
-        </div>
+    <>
+      {/* Toggle button for mobile only */}
+      <div className="md:hidden fixed bottom-0 right-4 z-50 mb-[44px]">
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="bg-primary text-primary-foreground p-1 rounded-full shadow-lg border border-border"
+        >
+          {collapsed ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
+        </button>
       </div>
 
-      <div className="flex items-center space-x-4">
-        <div className="flex items-center space-x-1">
-          <Wifi className="w-3 h-3" />
-          <span>Connected</span>
+      {/* StatusBar (hidden on mobile unless expanded) */}
+      <div
+        className={`
+          fixed bottom-0 left-0 right-0 z-40
+          px-4 py-1 border-t border-border backdrop-blur-sm
+          bg-primary text-primary-foreground text-xs font-mono
+          flex items-center justify-between
+          transition-all duration-300 ease-in-out
+          ${className}
+          ${collapsed ? 'hidden md:flex' : 'flex'}
+        `}
+        style={{ height: '36px' }}
+      >
+        <div className="flex items-center space-x-4 overflow-x-auto">
+          <div className="flex items-center space-x-1">
+            <GitBranch className="w-3 h-3" />
+            <span>main</span>
+          </div>
+
+          <div className="flex items-center space-x-1">
+            <CheckCircle className="w-3 h-3" />
+            <span>No issues</span>
+          </div>
+
+          <div>
+            {getFileInfo(activeFile)}
+          </div>
         </div>
 
-        <div>
-          {time.toLocaleTimeString()}
+        <div className="flex items-center space-x-4 overflow-x-auto">
+          <div className="flex items-center space-x-1">
+            <Wifi className="w-3 h-3" />
+            <span>Connected</span>
+          </div>
+
+          <div>{time.toLocaleTimeString()}</div>
         </div>
       </div>
-    </div>
+    </>
   )
 }

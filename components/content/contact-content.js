@@ -3,11 +3,11 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { gsap } from 'gsap'
 import { CheckCircle, Github, Linkedin, Mail, MapPin, Phone, Send, Twitter } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { Input } from '../ui/input'
 
 const contactInfo = [
   {
@@ -15,25 +15,25 @@ const contactInfo = [
     label: 'Email',
     value: 'hs.nahin430@gmail.com',
     href: 'mailto:hs.nahin430@gmail.com',
-    primary: true
+    primary: true,
   },
   {
     icon: Phone,
     label: 'Phone',
     value: '+880 123 456 789',
-    href: 'tel:+880123456789'
+    href: 'tel:+880123456789',
   },
   {
     icon: MapPin,
     label: 'Location',
     value: 'Dhaka, Bangladesh',
-    href: '#'
-  }
+    href: '#',
+  },
 ]
 
 const socialLinks = [
   { icon: Github, href: 'https://github.com/hs-nahin', label: 'GitHub' },
-  { icon: Linkedin, href: 'https://linkedin.com/in/hasnat-shahriyar', label: 'LinkedIn' },
+  { icon: Linkedin, href: 'https://www.linkedin.com/in/hs-nahin/', label: 'LinkedIn' },
   { icon: Twitter, href: 'https://twitter.com/hs_nahin', label: 'Twitter' },
 ]
 
@@ -42,20 +42,21 @@ export function ContactContent() {
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
   useEffect(() => {
-    gsap.fromTo('.contact-section', 
+    gsap.fromTo(
+      '.contact-section',
       { opacity: 0, y: 30 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 0.6, 
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.6,
         stagger: 0.1,
-        ease: 'power2.out'
+        ease: 'power2.out',
       }
     )
   }, [])
@@ -63,22 +64,22 @@ export function ContactContent() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitting(true)
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
+
+    // Simulate form submission delay
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+
     setIsSubmitted(true)
     setIsSubmitting(false)
     setFormData({ name: '', email: '', subject: '', message: '' })
-    
+
     // Reset success state after 3 seconds
     setTimeout(() => setIsSubmitted(false), 3000)
   }
 
   const handleChange = (e) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     }))
   }
 
@@ -99,7 +100,7 @@ export function ContactContent() {
               <span className="text-primary mr-2">//</span>
               Send Message
             </h2>
-            
+
             {isSubmitted ? (
               <div className="text-center py-8">
                 <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -140,7 +141,7 @@ export function ContactContent() {
                     />
                   </div>
                 </div>
-                
+
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium mb-2">
                     Subject *
@@ -155,7 +156,7 @@ export function ContactContent() {
                     placeholder="Project discussion, collaboration, etc."
                   />
                 </div>
-                
+
                 <div>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
                     Message *
@@ -170,7 +171,7 @@ export function ContactContent() {
                     placeholder="Tell me about your project or how I can help..."
                   />
                 </div>
-                
+
                 <Button
                   type="submit"
                   disabled={isSubmitting}
@@ -209,7 +210,11 @@ export function ContactContent() {
                       href={info.href}
                       className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors group"
                     >
-                      <div className={`p-2 rounded-lg ${info.primary ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
+                      <div
+                        className={`p-2 rounded-lg ${
+                          info.primary ? 'bg-primary text-primary-foreground' : 'bg-muted'
+                        }`}
+                      >
                         <IconComponent className="w-4 h-4" />
                       </div>
                       <div>
@@ -224,33 +229,32 @@ export function ContactContent() {
               </div>
             </Card>
 
-{/* Social Links */}
-<Card className="contact-section p-6 professional-hover">
-  <h2 className="text-xl font-semibold mb-6 flex items-center">
-    <span className="text-primary mr-2">//</span>
-    Connect Online
-  </h2>
-  <div className="grid grid-cols-3 gap-3">
-    {socialLinks.map((social) => {
-      const IconComponent = social.icon
-      return (
-        <a
-          key={social.label}
-          href={social.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex flex-col items-center p-4 rounded-lg border border-transparent hover:border-primary hover:bg-primary/20 transition-colors group professional-hover cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
-        >
-          <IconComponent className="w-6 h-6 mb-2 group-hover:text-primary transition-colors" />
-          <span className="text-sm font-medium group-hover:text-primary transition-colors">
-            {social.label}
-          </span>
-        </a>
-      )
-    })}
-  </div>
-</Card>
-
+            {/* Social Links */}
+            <Card className="contact-section p-6 professional-hover">
+              <h2 className="text-xl font-semibold mb-6 flex items-center">
+                <span className="text-primary mr-2">//</span>
+                Connect Online
+              </h2>
+              <div className="grid grid-cols-3 gap-3">
+                {socialLinks.map((social) => {
+                  const IconComponent = social.icon
+                  return (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex flex-col items-center p-4 rounded-lg border border-transparent hover:border-primary hover:bg-primary/20 transition-colors group professional-hover cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
+                    >
+                      <IconComponent className="w-6 h-6 mb-2 group-hover:text-primary transition-colors" />
+                      <span className="text-sm font-medium group-hover:text-primary transition-colors">
+                        {social.label}
+                      </span>
+                    </a>
+                  )
+                })}
+              </div>
+            </Card>
 
             {/* Availability */}
             <Card className="contact-section p-6 professional-hover">
@@ -263,8 +267,8 @@ export function ContactContent() {
                   Available for Projects
                 </Badge>
                 <p className="text-sm text-muted-foreground">
-                  Currently accepting new projects and collaborations. 
-                  Response time: 24-48 hours.
+                  Currently accepting new projects and collaborations. Response time: 24-48
+                  hours.
                 </p>
               </div>
             </Card>
@@ -277,12 +281,12 @@ export function ContactContent() {
               </h2>
               <div className="space-y-3 text-sm text-muted-foreground">
                 <p>
-                  I believe in building long-term partnerships with clients through transparent 
+                  I believe in building long-term partnerships with clients through transparent
                   communication, quality deliverables, and continuous collaboration.
                 </p>
                 <p>
-                  Whether you're a startup looking to build your first product or an established 
-                  company wanting to modernize your web presence, I'm here to help bring your 
+                  Whether you're a startup looking to build your first product or an established
+                  company wanting to modernize your web presence, I'm here to help bring your
                   vision to life.
                 </p>
               </div>
