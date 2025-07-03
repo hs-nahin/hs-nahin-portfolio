@@ -2,7 +2,6 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Calendar, ExternalLink, Github, Star } from "lucide-react";
 import { useState } from "react";
 
@@ -94,7 +93,8 @@ export function ProjectsContent() {
         <div className="space-y-8 sm:space-y-12 md:space-y-16 mb-16">
           {filteredProjects.map((project) => (
             <div key={project.id}>
-              <Card className="professional-hover overflow-hidden">
+              {/* Project Card - Redesigned without Card component */}
+              <div className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 overflow-hidden">
                 <div className="grid grid-cols-1 lg:grid-cols-2">
                   {/* Image */}
                   <div className="relative overflow-hidden">
@@ -182,13 +182,13 @@ export function ProjectsContent() {
                     </div>
                   </div>
                 </div>
-              </Card>
+              </div>
             </div>
           ))}
         </div>
 
-        {/* Summary Card */}
-        <Card className="p-4 sm:p-6 md:p-8 professional-hover mb-16">
+        {/* Summary Card - Redesigned without Card component */}
+        <div className="p-4 sm:p-6 md:p-8 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 mb-16">
           <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
             <span className="text-primary mr-2">//</span>
             Project Portfolio Summary
@@ -210,7 +210,7 @@ export function ProjectsContent() {
             </li>
             <li>Focused on creating delightful, magical user experiences</li>
           </ul>
-        </Card>
+        </div>
       </div>
     </div>
   );

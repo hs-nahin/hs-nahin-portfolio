@@ -102,7 +102,12 @@ export function SkillsContent() {
                       {category.skills.map((skill) => (
                         <div key={skill.name} className="p-3 sm:p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 cursor-pointer group">
                           <div className="flex items-center space-x-3">
-                            <Icon icon={skill.icon} className="w-6 sm:w-8 h-6 sm:h-8 group-hover:scale-110 transition-transform duration-300" />
+                            <div className="relative">
+                              <Icon 
+                                icon={skill.icon} 
+                                className="w-6 sm:w-8 h-6 sm:h-8 transition-all duration-300 group-hover:scale-110 filter grayscale group-hover:grayscale-0" 
+                              />
+                            </div>
                             <span className="font-medium group-hover:text-primary transition-colors duration-300 text-sm sm:text-base">{skill.name}</span>
                           </div>
                         </div>
