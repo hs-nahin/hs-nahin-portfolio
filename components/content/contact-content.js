@@ -4,9 +4,8 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
-import { gsap } from 'gsap'
 import { CheckCircle, Github, Linkedin, Mail, MapPin, Phone, Send, Twitter } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Input } from '../ui/input'
 
 const contactInfo = [
@@ -20,8 +19,8 @@ const contactInfo = [
   {
     icon: Phone,
     label: 'Phone',
-    value: '+880 123 456 789',
-    href: 'tel:+880123456789',
+    value: '+8801762999402',
+    href: 'tel:+8801762999402',
   },
   {
     icon: MapPin,
@@ -47,65 +46,64 @@ export function ContactContent() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
-  useEffect(() => {
-    gsap.fromTo(
-      '.contact-section',
-      { opacity: 0, y: 30 },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        stagger: 0.1,
-        ease: 'power2.out',
-      }
-    )
-  }, [])
-
   const handleSubmit = async (e) => {
     e.preventDefault()
+    
+    // Validate form
+    if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
+      alert('Please fill in all fields')
+      return
+    }
+
     setIsSubmitting(true)
 
-    // Simulate form submission delay
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    try {
+      // Simulate form submission delay
+      await new Promise((resolve) => setTimeout(resolve, 2000))
 
-    setIsSubmitted(true)
-    setIsSubmitting(false)
-    setFormData({ name: '', email: '', subject: '', message: '' })
+      setIsSubmitted(true)
+      setIsSubmitting(false)
+      setFormData({ name: '', email: '', subject: '', message: '' })
 
-    // Reset success state after 3 seconds
-    setTimeout(() => setIsSubmitted(false), 3000)
+      // Reset success state after 3 seconds
+      setTimeout(() => setIsSubmitted(false), 3000)
+    } catch (error) {
+      setIsSubmitting(false)
+      alert('Failed to send message. Please try again.')
+    }
   }
 
   const handleChange = (e) => {
+    const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }))
   }
 
   return (
     <div className="h-full overflow-y-auto">
-      <div className="p-8 max-w-4xl mx-auto">
-        <div className="contact-section mb-8">
-          <h1 className="text-3xl font-bold gradient-text mb-4">Get In Touch</h1>
-          <p className="text-muted-foreground text-lg">
+      <div className="p-4 sm:p-6 md:p-8 max-w-4xl mx-auto">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold gradient-text mb-4">Get In Touch</h1>
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
             Let's discuss your next project or explore opportunities to work together.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8 mb-8">
+        <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8">
           {/* Contact Form */}
-          <Card className="contact-section p-6 professional-hover">
-            <h2 className="text-xl font-semibold mb-6 flex items-center">
+          <Card className="p-4 sm:p-6 professional-hover">
+            <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
               <span className="text-primary mr-2">//</span>
               Send Message
             </h2>
 
             {isSubmitted ? (
-              <div className="text-center py-8">
-                <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold mb-2">Message Sent!</h3>
-                <p className="text-muted-foreground">
+              <div className="text-center py-6 sm:py-8">
+                <CheckCircle className="w-12 sm:w-16 h-12 sm:h-16 text-green-500 mx-auto mb-4" />
+                <h3 className="text-base sm:text-lg font-semibold mb-2">Message Sent!</h3>
+                <p className="text-muted-foreground text-sm sm:text-base">
                   Thank you for reaching out. I'll get back to you soon.
                 </p>
               </div>
@@ -124,6 +122,7 @@ export function ContactContent() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Your full name"
+                      className="w-full"
                     />
                   </div>
                   <div>
@@ -138,6 +137,7 @@ export function ContactContent() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="your.email@example.com"
+                      className="w-full"
                     />
                   </div>
                 </div>
@@ -154,6 +154,7 @@ export function ContactContent() {
                     value={formData.subject}
                     onChange={handleChange}
                     placeholder="Project discussion, collaboration, etc."
+                    className="w-full"
                   />
                 </div>
 
@@ -167,7 +168,7 @@ export function ContactContent() {
                     required
                     value={formData.message}
                     onChange={handleChange}
-                    className="min-h-[120px]"
+                    className="min-h-[120px] w-full"
                     placeholder="Tell me about your project or how I can help..."
                   />
                 </div>
@@ -196,8 +197,8 @@ export function ContactContent() {
           {/* Contact Information */}
           <div className="space-y-6">
             {/* Contact Details */}
-            <Card className="contact-section p-6 professional-hover">
-              <h2 className="text-xl font-semibold mb-6 flex items-center">
+            <Card className="p-4 sm:p-6 professional-hover">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Contact Information
               </h2>
@@ -218,10 +219,10 @@ export function ContactContent() {
                         <IconComponent className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="font-medium group-hover:text-primary transition-colors">
+                        <div className="font-medium group-hover:text-primary transition-colors text-sm sm:text-base">
                           {info.label}
                         </div>
-                        <div className="text-sm text-muted-foreground">{info.value}</div>
+                        <div className="text-xs sm:text-sm text-muted-foreground">{info.value}</div>
                       </div>
                     </a>
                   )
@@ -230,8 +231,8 @@ export function ContactContent() {
             </Card>
 
             {/* Social Links */}
-            <Card className="contact-section p-6 professional-hover">
-              <h2 className="text-xl font-semibold mb-6 flex items-center">
+            <Card className="p-4 sm:p-6 professional-hover">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Connect Online
               </h2>
@@ -244,10 +245,10 @@ export function ContactContent() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-col items-center p-4 rounded-lg border border-transparent hover:border-primary hover:bg-primary/20 transition-colors group professional-hover cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="flex flex-col items-center p-3 sm:p-4 rounded-lg border border-transparent hover:border-primary hover:bg-primary/20 transition-colors group professional-hover cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
                     >
-                      <IconComponent className="w-6 h-6 mb-2 group-hover:text-primary transition-colors" />
-                      <span className="text-sm font-medium group-hover:text-primary transition-colors">
+                      <IconComponent className="w-5 sm:w-6 h-5 sm:h-6 mb-2 group-hover:text-primary transition-colors" />
+                      <span className="text-xs sm:text-sm font-medium group-hover:text-primary transition-colors">
                         {social.label}
                       </span>
                     </a>
@@ -257,8 +258,8 @@ export function ContactContent() {
             </Card>
 
             {/* Availability */}
-            <Card className="contact-section p-6 professional-hover">
-              <h2 className="text-xl font-semibold mb-4 flex items-center">
+            <Card className="p-4 sm:p-6 professional-hover">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Availability
               </h2>
@@ -266,7 +267,7 @@ export function ContactContent() {
                 <Badge className="bg-green-500 hover:bg-green-600">
                   Available for Projects
                 </Badge>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   Currently accepting new projects and collaborations. Response time: 24-48
                   hours.
                 </p>
@@ -274,12 +275,12 @@ export function ContactContent() {
             </Card>
 
             {/* Work Approach */}
-            <Card className="contact-section p-6 professional-hover">
-              <h2 className="text-xl font-semibold mb-4 flex items-center">
+            <Card className="p-4 sm:p-6 professional-hover">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Work Approach
               </h2>
-              <div className="space-y-3 text-sm text-muted-foreground">
+              <div className="space-y-3 text-xs sm:text-sm text-muted-foreground">
                 <p>
                   I believe in building long-term partnerships with clients through transparent
                   communication, quality deliverables, and continuous collaboration.

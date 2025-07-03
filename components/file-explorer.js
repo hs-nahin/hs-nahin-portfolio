@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { gsap } from "gsap";
 import {
   ChevronDown,
   ChevronRight,
@@ -10,9 +9,12 @@ import {
   Folder,
   FolderOpen,
   Mail,
+  Menu,
   User,
+  X,
 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Button } from "./ui/button";
 
 const fileStructure = [
   {
@@ -63,20 +65,7 @@ const fileStructure = [
 
 export function FileExplorer({ activeFile, onFileSelect, className }) {
   const [expandedFolders, setExpandedFolders] = useState(["portfolio"]);
-
-  useEffect(() => {
-    gsap.fromTo(
-      ".file-item",
-      { opacity: 0, x: -20 },
-      {
-        opacity: 1,
-        x: 0,
-        duration: 0.3,
-        stagger: 0.1,
-        ease: "power2.out",
-      }
-    );
-  }, [expandedFolders]);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const toggleFolder = (folderName) => {
     setExpandedFolders((prev) =>
@@ -84,6 +73,11 @@ export function FileExplorer({ activeFile, onFileSelect, className }) {
         ? prev.filter((name) => name !== folderName)
         : [...prev, folderName]
     );
+  };
+
+  const handleFileSelect = (fileName) => {
+    onFileSelect(fileName);
+    setIsMobileOpen(false); // Close mobile menu when file is selected
   };
 
   const renderFileTree = (items, depth = 0) => {
@@ -112,12 +106,7 @@ export function FileExplorer({ activeFile, onFileSelect, className }) {
               if (item.type === "folder") {
                 toggleFolder(item.name);
               } else {
-                onFileSelect(item.name);
-                gsap.fromTo(
-                  ".content-area",
-                  { opacity: 0.7, x: 20 },
-                  { opacity: 1, x: 0, duration: 0.3, ease: "power2.out" }
-                );
+                handleFileSelect(item.name);
               }
             }}
           >
@@ -168,29 +157,55 @@ export function FileExplorer({ activeFile, onFileSelect, className }) {
   };
 
   return (
-    <div
-      className={cn(
-        "w-80 bg-muted/20 border-r border-border flex flex-col",
-        className
+    <>
+      {/* Mobile Menu Button */}
+      <Button
+        variant="ghost"
+        size="sm"
+        className="md:hidden fixed top-4 left-4 z-50 bg-background/80 backdrop-blur-sm border"
+        onClick={() => setIsMobileOpen(!isMobileOpen)}
+      >
+        {isMobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+      </Button>
+
+      {/* Mobile Overlay */}
+      {isMobileOpen && (
+        <div 
+          className="md:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setIsMobileOpen(false)}
+        />
       )}
-    >
-      {/* Sidebar header */}
-      <div className="px-4 py-3 border-b border-border bg-muted/30">
-        <h2 className="text-sm font-semibold text-foreground">EXPLORER</h2>
-      </div>
 
-      {/* Scrollable file list */}
-      <div className="flex-1 overflow-y-auto p-2">
-        {renderFileTree(fileStructure)}
-      </div>
+      {/* File Explorer */}
+      <div
+        className={cn(
+          "bg-muted/20 border-r border-border flex flex-col",
+          // Mobile styles
+          "md:relative md:translate-x-0 md:w-80",
+          // Mobile positioning
+          "fixed top-0 left-0 h-full w-80 z-50 transition-transform duration-300",
+          isMobileOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0",
+          className
+        )}
+      >
+        {/* Sidebar header */}
+        <div className="px-4 py-3 border-b border-border bg-muted/30">
+          <h2 className="text-sm font-semibold text-foreground">EXPLORER</h2>
+        </div>
 
-      {/* Footer info section */}
-      <div className="px-4 py-2 border-t border-border bg-muted/30 mb-10">
-        <div className="text-xs text-muted-foreground font-mono">
-          <div>Files: 6</div>
-          <div>Last modified: {new Date().toLocaleDateString()}</div>
+        {/* Scrollable file list */}
+        <div className="flex-1 overflow-y-auto p-2">
+          {renderFileTree(fileStructure)}
+        </div>
+
+        {/* Footer info section */}
+        <div className="px-4 py-2 border-t border-border bg-muted/30">
+          <div className="text-xs text-muted-foreground font-mono">
+            <div>Files: 6</div>
+            <div>Last modified: {new Date().toLocaleDateString()}</div>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
