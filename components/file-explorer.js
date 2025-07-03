@@ -13,7 +13,7 @@ import {
   User,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 
 const fileStructure = [
@@ -67,6 +67,18 @@ export function FileExplorer({ activeFile, onFileSelect, className }) {
   const [expandedFolders, setExpandedFolders] = useState(["portfolio"]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
+  // Sync tree expansion with active file
+  useEffect(() => {
+    if (activeFile === "CodeLink.jsx" || activeFile === "CareerHive.jsx") {
+      setExpandedFolders(prev => {
+        if (!prev.includes("projects")) {
+          return [...prev, "projects"];
+        }
+        return prev;
+      });
+    }
+  }, [activeFile]);
+
   const toggleFolder = (folderName) => {
     setExpandedFolders((prev) =>
       prev.includes(folderName)
@@ -84,6 +96,15 @@ export function FileExplorer({ activeFile, onFileSelect, className }) {
     return items.map((item, index) => {
       const isExpanded = expandedFolders.includes(item.name);
       const isActive = activeFile === item.name;
+      
+      // Special highlighting for project files when they're active
+      const isProjectFile = item.name === "CodeLink.jsx" || item.name === "CareerHive.jsx";
+      const shouldHighlight = isProjectFile && (
+        activeFile === item.name || 
+        (activeFile === "CodeLink.jsx" && item.name === "CodeLink.jsx") ||
+        (activeFile === "CareerHive.jsx" && item.name === "CareerHive.jsx")
+      );
+      
       const IconComponent =
         item.icon ||
         (item.type === "folder"
@@ -98,7 +119,7 @@ export function FileExplorer({ activeFile, onFileSelect, className }) {
             className={cn(
               "flex items-center space-x-2 px-2 py-1.5 cursor-pointer transition-smooth file-tree-item rounded-sm",
               "hover:bg-accent/50",
-              isActive && "bg-primary/10 border-l-2 border-primary",
+              (isActive || shouldHighlight) && "bg-primary/10 border-l-2 border-primary",
               depth > 0 && "ml-4"
             )}
             style={{ paddingLeft: `${depth * 16 + 8}px` }}
@@ -126,14 +147,14 @@ export function FileExplorer({ activeFile, onFileSelect, className }) {
                 item.type === "folder"
                   ? "text-blue-500"
                   : "text-muted-foreground",
-                isActive && "text-primary"
+                (isActive || shouldHighlight) && "text-primary"
               )}
             />
 
             <span
               className={cn(
                 "text-sm font-mono",
-                isActive ? "text-primary font-medium" : "text-foreground"
+                (isActive || shouldHighlight) ? "text-primary font-medium" : "text-foreground"
               )}
             >
               {item.name}
@@ -196,14 +217,6 @@ export function FileExplorer({ activeFile, onFileSelect, className }) {
         {/* Scrollable file list */}
         <div className="flex-1 overflow-y-auto p-2">
           {renderFileTree(fileStructure)}
-        </div>
-
-        {/* Footer info section */}
-        <div className="px-4 py-2 border-t border-border bg-muted/30">
-          <div className="text-xs text-muted-foreground font-mono">
-            <div>Files: 6</div>
-            <div>Last modified: {new Date().toLocaleDateString()}</div>
-          </div>
         </div>
       </div>
     </>
