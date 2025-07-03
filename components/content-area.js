@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AboutContent } from '@/components/content/about-content'
 import { SkillsContent } from '@/components/content/skills-content'
 import { ProjectsContent } from '@/components/content/projects-content'
 import { ContactContent } from '@/components/content/contact-content'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { cn } from '@/lib/utils'
-import { gsap } from 'gsap'
 
 const contentMap = {
   'about.md': AboutContent,
@@ -21,27 +20,6 @@ const contentMap = {
 export function ContentArea({ activeFile, className }) {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const ContentComponent = contentMap[activeFile] || AboutContent
-
-  useEffect(() => {
-    setIsTransitioning(true)
-    
-    const tl = gsap.timeline({
-      onComplete: () => setIsTransitioning(false)
-    })
-    
-    tl.to('.content-wrapper', {
-      opacity: 0,
-      y: 20,
-      duration: 0.2,
-      ease: 'power2.out'
-    })
-    .to('.content-wrapper', {
-      opacity: 1,
-      y: 0,
-      duration: 0.3,
-      ease: 'power2.out'
-    })
-  }, [activeFile])
 
   return (
     <div className={cn('flex-1 flex flex-col bg-background', className)}>
@@ -68,7 +46,7 @@ export function ContentArea({ activeFile, className }) {
           'content-wrapper h-full',
           isTransitioning && 'pointer-events-none'
         )}>
-          <ContentComponent />
+          <ContentComponent activeFile={activeFile} />
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar, ExternalLink, Github, Star } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const projects = [
   {
@@ -43,8 +43,19 @@ const projects = [
   }
 ];
 
-export function ProjectsContent() {
+export function ProjectsContent({ activeFile }) {
   const [activeFilter, setActiveFilter] = useState("all");
+
+  // Set filter based on activeFile
+  useEffect(() => {
+    if (activeFile === "CodeLink.jsx") {
+      setActiveFilter("codelink");
+    } else if (activeFile === "CareerHive.jsx") {
+      setActiveFilter("careerhive");
+    } else if (activeFile === "projects") {
+      setActiveFilter("all");
+    }
+  }, [activeFile]);
 
   const filteredProjects = activeFilter === "all" 
     ? projects 
