@@ -71,8 +71,12 @@ export function ContactContent() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+<<<<<<< HEAD
     
     // Validate form
+=======
+
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
     if (!formData.name.trim() || !formData.email.trim() || !formData.subject.trim() || !formData.message.trim()) {
       alert('Please fill in all fields')
       return
@@ -81,14 +85,20 @@ export function ContactContent() {
     setIsSubmitting(true)
 
     try {
+<<<<<<< HEAD
       // Simulate form submission delay
+=======
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
       await new Promise((resolve) => setTimeout(resolve, 2000))
 
       setIsSubmitted(true)
       setIsSubmitting(false)
       setFormData({ name: '', email: '', subject: '', message: '' })
+<<<<<<< HEAD
 
       // Reset success state after 3 seconds
+=======
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
       setTimeout(() => setIsSubmitted(false), 3000)
     } catch (error) {
       setIsSubmitting(false)
@@ -98,10 +108,18 @@ export function ContactContent() {
 
   const handleChange = (e) => {
     const { name, value } = e.target
+<<<<<<< HEAD
     setFormData((prev) => ({
       ...prev,
       [name]: value,
     }))
+=======
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleDownloadCV = () => {
+    window.open('https://drive.google.com/file/d/1fedkbaLSzHHWj3-XGMLSKkKhHhLGKCX6/view?usp=sharing', '_blank')
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
   }
 
   const handleDownloadCV = () => {
@@ -119,7 +137,10 @@ export function ContactContent() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8">
+<<<<<<< HEAD
           {/* Contact Form - Redesigned without Card */}
+=======
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
           <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
             <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
               <span className="text-primary mr-2">//</span>
@@ -138,6 +159,7 @@ export function ContactContent() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
+<<<<<<< HEAD
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
                       Name *
                     </label>
@@ -166,10 +188,18 @@ export function ContactContent() {
                       placeholder="your.email@example.com"
                       className="w-full"
                     />
+=======
+                    <label htmlFor="name" className="block text-sm font-medium mb-2">Name *</label>
+                    <Input id="name" name="name" type="text" required value={formData.name} onChange={handleChange} placeholder="Your full name" className="w-full" />
+                  </div>
+                  <div>
+                    <label htmlFor="email" className="block text-sm font-medium mb-2">Email *</label>
+                    <Input id="email" name="email" type="email" required value={formData.email} onChange={handleChange} placeholder="your.email@example.com" className="w-full" />
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
                   </div>
                 </div>
-
                 <div>
+<<<<<<< HEAD
                   <label htmlFor="subject" className="block text-sm font-medium mb-2">
                     Subject *
                   </label>
@@ -183,9 +213,13 @@ export function ContactContent() {
                     placeholder="Project discussion, collaboration, etc."
                     className="w-full"
                   />
+=======
+                  <label htmlFor="subject" className="block text-sm font-medium mb-2">Subject *</label>
+                  <Input id="subject" name="subject" type="text" required value={formData.subject} onChange={handleChange} placeholder="Project discussion, collaboration, etc." className="w-full" />
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
                 </div>
-
                 <div>
+<<<<<<< HEAD
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
                     Message *
                   </label>
@@ -198,13 +232,12 @@ export function ContactContent() {
                     className="min-h-[120px] w-full resize-none"
                     placeholder="Tell me about your project or how I can help..."
                   />
+=======
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">Message *</label>
+                  <Textarea id="message" name="message" required value={formData.message} onChange={handleChange} className="min-h-[120px] w-full resize-none" placeholder="Tell me about your project or how I can help..." />
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
                 </div>
-
-                <Button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full shine-effect"
-                >
+                <Button type="submit" disabled={isSubmitting} className="w-full shine-effect">
                   {isSubmitting ? (
                     <div className="flex items-center">
                       <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2"></div>
@@ -221,9 +254,11 @@ export function ContactContent() {
             )}
           </div>
 
-          {/* Contact Information */}
           <div className="space-y-6">
+<<<<<<< HEAD
             {/* Contact Details */}
+=======
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
             <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
                 <span className="text-primary mr-2">//</span>
@@ -233,22 +268,18 @@ export function ContactContent() {
                 {contactInfo.map((info) => {
                   const IconComponent = info.icon
                   return (
-                    <a
-                      key={info.label}
-                      href={info.href}
-                      className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors group"
-                    >
-                      <div
-                        className={`p-2 rounded-lg ${
-                          info.primary ? 'bg-primary text-primary-foreground' : 'bg-muted'
-                        }`}
-                      >
+                    <a key={info.label} href={info.href} className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors group">
+                      <div className={`p-2 rounded-lg ${info.primary ? 'bg-primary text-primary-foreground' : 'bg-muted'}`}>
                         <IconComponent className="w-4 h-4" />
                       </div>
                       <div>
+<<<<<<< HEAD
                         <div className="font-medium group-hover:text-primary transition-colors text-sm sm:text-base">
                           {info.label}
                         </div>
+=======
+                        <div className="font-medium group-hover:text-primary transition-colors text-sm sm:text-base">{info.label}</div>
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
                         <div className="text-xs sm:text-sm text-muted-foreground">{info.value}</div>
                       </div>
                     </a>
@@ -257,6 +288,7 @@ export function ContactContent() {
               </div>
             </div>
 
+<<<<<<< HEAD
             {/* Download CV Button */}
             <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
@@ -267,12 +299,23 @@ export function ContactContent() {
                 onClick={handleDownloadCV}
                 className="w-full shine-effect bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
               >
+=======
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
+              <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
+                <span className="text-primary mr-2">//</span>
+                Resume / CV
+              </h2>
+              <Button onClick={handleDownloadCV} type="button" disabled={isSubmitting} className="w-full shine-effect">
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
                 <Download className="w-4 h-4 mr-2" />
                 Download CV
               </Button>
             </div>
 
+<<<<<<< HEAD
             {/* Social Links - Redesigned without Card */}
+=======
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
             <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
                 <span className="text-primary mr-2">//</span>
@@ -282,6 +325,7 @@ export function ContactContent() {
                 {socialLinks.map((social) => {
                   const IconComponent = social.icon
                   return (
+<<<<<<< HEAD
                     <a
                       key={social.label}
                       href={social.href}
@@ -293,30 +337,47 @@ export function ContactContent() {
                       <span className="text-xs sm:text-sm font-medium group-hover:text-primary transition-colors text-center">
                         {social.label}
                       </span>
+=======
+                    <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" className="flex flex-col items-center p-3 sm:p-4 rounded-lg border border-transparent hover:border-primary hover:bg-primary/20 transition-colors group cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary">
+                      <IconComponent className="mb-2 group-hover:text-primary transition-colors" />
+                      <span className="text-xs sm:text-sm font-medium group-hover:text-primary transition-colors text-center">{social.label}</span>
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
                     </a>
                   )
                 })}
               </div>
             </div>
 
+<<<<<<< HEAD
             {/* Availability */}
+=======
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
             <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Availability
               </h2>
               <div className="space-y-3">
+<<<<<<< HEAD
                 <Badge className="bg-green-500 hover:bg-green-600">
                   Available for Projects
                 </Badge>
                 <p className="text-xs sm:text-sm text-muted-foreground">
                   Currently accepting new projects and collaborations. Response time: 24-48
                   hours.
+=======
+                <Badge className="bg-green-500 hover:bg-green-600">Available for Projects</Badge>
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  Currently accepting new projects and collaborations. Response time: 24-48 hours.
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
                 </p>
               </div>
             </div>
 
+<<<<<<< HEAD
             {/* Work Approach */}
+=======
+>>>>>>> 7ab7d04 (updated and fixed responsiveness and redesigned the download cv button)
             <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
@@ -324,13 +385,10 @@ export function ContactContent() {
               </h2>
               <div className="space-y-3 text-xs sm:text-sm text-muted-foreground">
                 <p>
-                  I believe in building long-term partnerships with clients through transparent
-                  communication, quality deliverables, and continuous collaboration.
+                  I believe in building long-term partnerships with clients through transparent communication, quality deliverables, and continuous collaboration.
                 </p>
                 <p>
-                  Whether you're a startup looking to build your first product or an established
-                  company wanting to modernize your web presence, I'm here to help bring your
-                  vision to life.
+                  Whether you're a startup looking to build your first product or an established company wanting to modernize your web presence, I'm here to help bring your vision to life.
                 </p>
               </div>
             </div>
