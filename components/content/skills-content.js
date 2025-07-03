@@ -1,7 +1,6 @@
 'use client'
 
 import { Badge } from '@/components/ui/badge'
-import { Card } from '@/components/ui/card'
 import { Icon } from '@iconify/react'
 import { ChevronDown, ChevronRight } from 'lucide-react'
 import { useState } from 'react'
@@ -79,7 +78,7 @@ export function SkillsContent() {
             const isExpanded = expandedCategories.includes(category.name)
 
             return (
-              <Card key={category.name} className="professional-hover">
+              <div key={category.name} className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
                 <div
                   className="flex items-center justify-between p-4 sm:p-6 cursor-pointer"
                   onClick={() => toggleCategory(category.name)}
@@ -101,23 +100,23 @@ export function SkillsContent() {
                   <div className="px-4 sm:px-6 pb-4 sm:pb-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       {category.skills.map((skill) => (
-                        <Card key={skill.name} className="p-3 sm:p-4 hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 cursor-pointer group">
+                        <div key={skill.name} className="p-3 sm:p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 cursor-pointer group">
                           <div className="flex items-center space-x-3">
                             <Icon icon={skill.icon} className="w-6 sm:w-8 h-6 sm:h-8 group-hover:scale-110 transition-transform duration-300" />
                             <span className="font-medium group-hover:text-primary transition-colors duration-300 text-sm sm:text-base">{skill.name}</span>
                           </div>
-                        </Card>
+                        </div>
                       ))}
                     </div>
                   </div>
                 )}
-              </Card>
+              </div>
             )
           })}
         </div>
 
         {/* Summary */}
-        <Card className="p-4 sm:p-6 professional-hover mb-8">
+        <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 mb-8">
           <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
             <span className="text-primary mr-2">//</span>
             Expertise Summary
@@ -136,7 +135,7 @@ export function SkillsContent() {
               <div className="text-xs sm:text-sm text-muted-foreground">Started Journey</div>
             </div>
           </div>
-        </Card>
+        </div>
       </div>
     </div>
   )

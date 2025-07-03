@@ -2,7 +2,6 @@
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Card } from '@/components/ui/card'
 import { Textarea } from '@/components/ui/textarea'
 import { CheckCircle, Github, Linkedin, Mail, MapPin, Phone, Send, Twitter } from 'lucide-react'
 import { useState } from 'react'
@@ -92,8 +91,8 @@ export function ContactContent() {
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8">
-          {/* Contact Form */}
-          <Card className="p-4 sm:p-6 professional-hover">
+          {/* Contact Form - Redesigned without Card */}
+          <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
             <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
               <span className="text-primary mr-2">//</span>
               Send Message
@@ -168,7 +167,7 @@ export function ContactContent() {
                     required
                     value={formData.message}
                     onChange={handleChange}
-                    className="min-h-[120px] w-full"
+                    className="min-h-[120px] w-full resize-none"
                     placeholder="Tell me about your project or how I can help..."
                   />
                 </div>
@@ -192,12 +191,12 @@ export function ContactContent() {
                 </Button>
               </form>
             )}
-          </Card>
+          </div>
 
           {/* Contact Information */}
           <div className="space-y-6">
             {/* Contact Details */}
-            <Card className="p-4 sm:p-6 professional-hover">
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Contact Information
@@ -228,10 +227,10 @@ export function ContactContent() {
                   )
                 })}
               </div>
-            </Card>
+            </div>
 
             {/* Social Links */}
-            <Card className="p-4 sm:p-6 professional-hover">
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Connect Online
@@ -245,7 +244,7 @@ export function ContactContent() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex flex-col items-center p-3 sm:p-4 rounded-lg border border-transparent hover:border-primary hover:bg-primary/20 transition-colors group professional-hover cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
+                      className="flex flex-col items-center p-3 sm:p-4 rounded-lg border border-transparent hover:border-primary hover:bg-primary/20 transition-colors group cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary"
                     >
                       <IconComponent className="w-5 sm:w-6 h-5 sm:h-6 mb-2 group-hover:text-primary transition-colors" />
                       <span className="text-xs sm:text-sm font-medium group-hover:text-primary transition-colors">
@@ -255,10 +254,10 @@ export function ContactContent() {
                   )
                 })}
               </div>
-            </Card>
+            </div>
 
             {/* Availability */}
-            <Card className="p-4 sm:p-6 professional-hover">
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Availability
@@ -272,10 +271,10 @@ export function ContactContent() {
                   hours.
                 </p>
               </div>
-            </Card>
+            </div>
 
             {/* Work Approach */}
-            <Card className="p-4 sm:p-6 professional-hover">
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Work Approach
@@ -291,7 +290,7 @@ export function ContactContent() {
                   vision to life.
                 </p>
               </div>
-            </Card>
+            </div>
           </div>
         </div>
       </div>
