@@ -168,7 +168,7 @@ export function SkillsContent() {
               <div className="text-xs sm:text-sm text-muted-foreground">Personal Projects</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">2024</div>
+              <div className="text-2xl sm:text-3xl font-bold text-primary mb-2">2023</div>
               <div className="text-xs sm:text-sm text-muted-foreground">Started Journey</div>
             </div>
           </div>
