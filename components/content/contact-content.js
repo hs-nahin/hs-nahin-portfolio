@@ -246,7 +246,7 @@ export function ContactContent() {
             <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
               <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
-                Resume
+                Resume / CV
               </h2>
               <Button onClick={handleDownloadCV} type="button" className="w-full shine-effect">
                 <Download className="w-4 h-4 mr-2" />
