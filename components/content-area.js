@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { AboutContent } from '@/components/content/about-content'
 import { SkillsContent } from '@/components/content/skills-content'
 import { ProjectsContent } from '@/components/content/projects-content'
@@ -19,7 +19,22 @@ const contentMap = {
 
 export function ContentArea({ activeFile, className }) {
   const [isTransitioning, setIsTransitioning] = useState(false)
-  const ContentComponent = contentMap[activeFile] || AboutContent
+  const [currentContent, setCurrentContent] = useState(activeFile)
+  const ContentComponent = contentMap[currentContent] || AboutContent
+
+  useEffect(() => {
+    if (activeFile !== currentContent) {
+      setIsTransitioning(true)
+      
+      // Start transition
+      const timer = setTimeout(() => {
+        setCurrentContent(activeFile)
+        setIsTransitioning(false)
+      }, 150) // Half of transition duration
+
+      return () => clearTimeout(timer)
+    }
+  }, [activeFile, currentContent])
 
   return (
     <div className={cn('flex-1 flex flex-col bg-background', className)}>
@@ -27,9 +42,9 @@ export function ContentArea({ activeFile, className }) {
       <div className="flex items-center justify-between bg-muted/20 border-b border-border">
         <div className="flex">
           <div className="flex items-center space-x-2 px-4 py-2 bg-background border-r border-border">
-            <div className="w-2 h-2 rounded-full bg-primary"></div>
+            <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
             <span className="text-sm font-mono">{activeFile}</span>
-            <button className="text-muted-foreground hover:text-foreground ml-2">
+            <button className="text-muted-foreground hover:text-foreground ml-2 transition-colors duration-200">
               ×
             </button>
           </div>
@@ -40,13 +55,16 @@ export function ContentArea({ activeFile, className }) {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex-1 overflow-hidden">
-        <div className={cn(
-          'content-wrapper h-full',
-          isTransitioning && 'pointer-events-none'
-        )}>
-          <ContentComponent activeFile={activeFile} />
+      {/* Content with smooth transitions */}
+      <div className="flex-1 overflow-hidden relative">
+        <div 
+          className={cn(
+            'content-wrapper h-full transition-all duration-300 ease-in-out',
+            isTransitioning && 'opacity-0 transform translate-y-4 scale-[0.98]',
+            !isTransitioning && 'opacity-100 transform translate-y-0 scale-100'
+          )}
+        >
+          <ContentComponent activeFile={currentContent} />
         </div>
       </div>
     </div>
