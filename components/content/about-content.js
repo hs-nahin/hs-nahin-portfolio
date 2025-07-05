@@ -1,7 +1,6 @@
 'use client'
 
 import { Badge } from '@/components/ui/badge'
-import { Card } from '@/components/ui/card'
 import { Calendar, Coffee, MapPin } from 'lucide-react'
 
 export function AboutContent() {
@@ -9,15 +8,32 @@ export function AboutContent() {
     <div className="h-full overflow-y-auto">
       <div className="px-4 sm:px-6 md:px-8 py-6 sm:py-8 max-w-4xl mx-auto">
         {/* Header */}
-        <div className="mb-8 sm:mb-12">
+        <div className="mb-8 sm:mb-12 blur-in" style={{ animationDelay: '0.1s' }}>
           <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-4 space-y-4 sm:space-y-0 mb-6">
             <div className="w-16 sm:w-20 h-16 sm:h-20 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center text-white text-xl sm:text-2xl font-bold shrink-0">
               HS
             </div>
             <div className="text-center sm:text-left">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-2">Hasnat Shahriyar</h1>
-              <p className="text-muted-foreground text-sm sm:text-base md:text-lg">Frontend Developer</p>
-              <div className="flex flex-col sm:flex-row sm:space-x-4 mt-2 text-xs sm:text-sm text-muted-foreground space-y-1 sm:space-y-0">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-2 blur-in-chars">
+                <span className="char">H</span>
+                <span className="char">a</span>
+                <span className="char">s</span>
+                <span className="char">n</span>
+                <span className="char">a</span>
+                <span className="char">t</span>
+                <span className="char"> </span>
+                <span className="char">S</span>
+                <span className="char">h</span>
+                <span className="char">a</span>
+                <span className="char">h</span>
+                <span className="char">r</span>
+                <span className="char">i</span>
+                <span className="char">y</span>
+                <span className="char">a</span>
+                <span className="char">r</span>
+              </h1>
+              <p className="text-muted-foreground text-sm sm:text-base md:text-lg blur-in-text" style={{ animationDelay: '0.8s' }}>Frontend Developer</p>
+              <div className="flex flex-col sm:flex-row sm:space-x-4 mt-2 text-xs sm:text-sm text-muted-foreground space-y-1 sm:space-y-0 blur-in" style={{ animationDelay: '1s' }}>
                 <div className="flex items-center justify-center sm:justify-start space-x-1">
                   <MapPin className="w-3 sm:w-4 h-3 sm:h-4" />
                   <span>Dhaka, Bangladesh</span>
@@ -32,8 +48,8 @@ export function AboutContent() {
         </div>
 
         {/* Introduction */}
-        <div className="mb-8 sm:mb-12">
-          <Card className="p-4 sm:p-6 md:p-8 professional-hover">
+        <div className="mb-8 sm:mb-12 blur-in" style={{ animationDelay: '0.2s' }}>
+          <div className="p-4 sm:p-6 md:p-8 professional-hover rounded-lg border bg-card text-card-foreground shadow-sm">
             <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 flex items-center">
               <span className="text-primary mr-2">//</span>
               Introduction
@@ -51,17 +67,17 @@ export function AboutContent() {
                 Outside of coding, I'm exploring best practices, UI/UX fundamentals, and web performance optimization.
               </p>
             </div>
-          </Card>
+          </div>
         </div>
 
         {/* Skills & Learning */}
-        <div className="mb-8 sm:mb-12">
+        <div className="mb-8 sm:mb-12 blur-in" style={{ animationDelay: '0.3s' }}>
           <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 flex items-center">
             <span className="text-primary mr-2">//</span>
             Skills & Learning Highlights
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <Card className="p-4 sm:p-6 professional-hover">
+            <div className="p-4 sm:p-6 professional-hover rounded-lg border bg-card text-card-foreground shadow-sm">
               <div className="flex items-center space-x-3 mb-4">
                 <Coffee className="w-5 sm:w-6 h-5 sm:h-6 text-primary" />
                 <h3 className="text-base sm:text-lg font-semibold">Frontend Development</h3>
@@ -70,9 +86,9 @@ export function AboutContent() {
                 Familiar with HTML, CSS, JavaScript fundamentals, and building responsive layouts 
                 using Tailwind CSS and React.js.
               </p>
-            </Card>
+            </div>
 
-            <Card className="p-4 sm:p-6 professional-hover">
+            <div className="p-4 sm:p-6 professional-hover rounded-lg border bg-card text-card-foreground shadow-sm">
               <div className="flex items-center space-x-3 mb-4">
                 <Coffee className="w-5 sm:w-6 h-5 sm:h-6 text-primary" />
                 <h3 className="text-base sm:text-lg font-semibold">Continuous Learning</h3>
@@ -81,17 +97,17 @@ export function AboutContent() {
                 Actively learning Next.js, TypeScript, and improving understanding of React hooks, state management, 
                 and component design.
               </p>
-            </Card>
+            </div>
           </div>
         </div>
 
         {/* Current Focus */}
-        <div className="mb-8 sm:mb-12">
+        <div className="mb-8 sm:mb-12 blur-in" style={{ animationDelay: '0.4s' }}>
           <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 flex items-center">
             <span className="text-primary mr-2">//</span>
             Current Focus
           </h2>
-          <Card className="p-4 sm:p-6 professional-hover">
+          <div className="p-4 sm:p-6 professional-hover rounded-lg border bg-card text-card-foreground shadow-sm">
             <div className="flex flex-wrap gap-2 mb-4">
               <Badge variant="secondary" className="text-xs sm:text-sm">Next.js (Learning)</Badge>
               <Badge variant="secondary" className="text-xs sm:text-sm">TypeScript (Learning)</Badge>
@@ -104,16 +120,16 @@ export function AboutContent() {
               Focused on mastering core frontend technologies and improving my ability to build clean, accessible, 
               and performant web applications. Open to learning new tools and frameworks.
             </p>
-          </Card>
+          </div>
         </div>
 
         {/* Professional Journey */}
-        <div className="mb-8 sm:mb-12">
+        <div className="mb-8 sm:mb-12 blur-in" style={{ animationDelay: '0.5s' }}>
           <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 flex items-center">
             <span className="text-primary mr-2">//</span>
             Professional Journey
           </h2>
-          <Card className="p-4 sm:p-6 professional-hover">
+          <div className="p-4 sm:p-6 professional-hover rounded-lg border bg-card text-card-foreground shadow-sm">
             <div className="space-y-4 text-muted-foreground text-xs sm:text-sm md:text-base text-balance">
               <p>
                 I started my journey into web development recently, motivated by a passion for technology 
@@ -129,11 +145,11 @@ export function AboutContent() {
                 expanding my knowledge.
               </p>
             </div>
-          </Card>
+          </div>
         </div>
 
         {/* Values */}
-        <div className="mb-6 sm:mb-8">
+        <div className="mb-6 sm:mb-8 blur-in" style={{ animationDelay: '0.6s' }}>
           <h2 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6 flex items-center">
             <span className="text-primary mr-2">//</span>
             Values & Approach
@@ -157,10 +173,10 @@ export function AboutContent() {
                 desc: 'I value working with others, asking questions, and learning from experienced developers.',
               }
             ].map((item, index) => (
-              <Card key={index} className="p-4 sm:p-6 professional-hover">
+              <div key={index} className="p-4 sm:p-6 professional-hover rounded-lg border bg-card text-card-foreground shadow-sm">
                 <h3 className="text-base sm:text-lg font-semibold mb-3">{item.title}</h3>
                 <p className="text-muted-foreground text-xs sm:text-sm md:text-base">{item.desc}</p>
-              </Card>
+              </div>
             ))}
           </div>
         </div>

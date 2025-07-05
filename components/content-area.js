@@ -26,11 +26,11 @@ export function ContentArea({ activeFile, className }) {
     if (activeFile !== currentContent) {
       setIsTransitioning(true)
       
-      // Start transition
+      // Start transition with blur effect
       const timer = setTimeout(() => {
         setCurrentContent(activeFile)
         setIsTransitioning(false)
-      }, 150) // Half of transition duration
+      }, 200) // Slightly longer for blur effect
 
       return () => clearTimeout(timer)
     }
@@ -55,13 +55,13 @@ export function ContentArea({ activeFile, className }) {
         </div>
       </div>
 
-      {/* Content with smooth transitions */}
+      {/* Content with MagicUI blur transitions */}
       <div className="flex-1 overflow-hidden relative">
         <div 
           className={cn(
-            'content-wrapper h-full transition-all duration-300 ease-in-out',
-            isTransitioning && 'opacity-0 transform translate-y-4 scale-[0.98]',
-            !isTransitioning && 'opacity-100 transform translate-y-0 scale-100'
+            'content-wrapper h-full transition-all duration-400 ease-out',
+            isTransitioning && 'opacity-0 blur-sm transform translate-y-4 scale-[0.98]',
+            !isTransitioning && 'opacity-100 blur-0 transform translate-y-0 scale-100 blur-in'
           )}
         >
           <ContentComponent activeFile={currentContent} />
