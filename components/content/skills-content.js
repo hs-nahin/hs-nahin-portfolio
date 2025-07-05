@@ -55,8 +55,8 @@ export function SkillsContent() {
   const [expandedCategories, setExpandedCategories] = useState([])
 
   const toggleCategory = (categoryName) => {
-    setExpandedCategories(prev => 
-      prev.includes(categoryName) 
+    setExpandedCategories(prev =>
+      prev.includes(categoryName)
         ? prev.filter(name => name !== categoryName)
         : [...prev, categoryName]
     )
@@ -78,13 +78,26 @@ export function SkillsContent() {
             const isExpanded = expandedCategories.includes(category.name)
 
             return (
-              <div key={category.name} className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
+              <div
+                key={category.name}
+                className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30"
+              >
                 <div
-                  className="flex items-center justify-between p-4 sm:p-6 cursor-pointer"
+                  className="flex items-center justify-between p-4 sm:p-6 cursor-pointer select-none"
                   onClick={() => toggleCategory(category.name)}
+                  aria-expanded={isExpanded}
+                  role="button"
+                  tabIndex={0}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      toggleCategory(category.name)
+                    }
+                  }}
                 >
                   <div className="flex items-center space-x-3">
-                    <div className="transition-transform duration-200">
+                    <div
+                      className={`transition-transform duration-200 ${isExpanded ? 'rotate-90' : ''}`}
+                    >
                       {isExpanded ? (
                         <ChevronDown className="w-4 sm:w-5 h-4 sm:h-5 text-primary" />
                       ) : (
@@ -96,16 +109,35 @@ export function SkillsContent() {
                   </div>
                 </div>
 
-                {isExpanded && (
+                {/* Accordion Content with smooth slide/fade */}
+                <div
+                  style={{
+                    maxHeight: isExpanded ? `${category.skills.length * 60}px` : '0px',
+                    opacity: isExpanded ? 1 : 0,
+                    transition: 'max-height 0.35s ease, opacity 0.35s ease',
+                    overflow: 'hidden',
+                  }}
+                  aria-hidden={!isExpanded}
+                >
                   <div className="px-4 sm:px-6 pb-4 sm:pb-6">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                      {category.skills.map((skill) => (
-                        <div key={skill.name} className="p-3 sm:p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 cursor-pointer group">
+                      {category.skills.map((skill, idx) => (
+                        <div
+                          key={skill.name}
+                          className="p-3 sm:p-4 rounded-lg border bg-card text-card-foreground shadow-sm hover:bg-primary/10 hover:border-primary/30 transition-all duration-300 cursor-pointer group"
+                          style={{
+                            transitionDelay: isExpanded ? `${idx * 70}ms` : '0ms',
+                            opacity: isExpanded ? 1 : 0,
+                            transform: isExpanded ? 'translateY(0)' : 'translateY(10px)',
+                            transitionProperty: 'opacity, transform',
+                            transitionDuration: '0.3s',
+                          }}
+                        >
                           <div className="flex items-center space-x-3">
                             <div className="relative">
-                              <Icon 
-                                icon={skill.icon} 
-                                className="w-6 sm:w-8 h-6 sm:h-8 transition-all duration-300 group-hover:scale-110 filter grayscale group-hover:grayscale-0" 
+                              <Icon
+                                icon={skill.icon}
+                                className="w-6 sm:w-8 h-6 sm:h-8 transition-all duration-300 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
                               />
                             </div>
                             <span className="font-medium group-hover:text-primary transition-colors duration-300 text-sm sm:text-base">{skill.name}</span>
@@ -114,7 +146,7 @@ export function SkillsContent() {
                       ))}
                     </div>
                   </div>
-                )}
+                </div>
               </div>
             )
           })}
