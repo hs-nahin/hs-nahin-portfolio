@@ -126,24 +126,47 @@ export function ContactContent() {
 
   return (
     <div className="h-full overflow-y-auto">
-      <div className="p-4 sm:p-6 md:p-8 max-w-4xl mx-auto animate-fade-in-up">
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold gradient-text mb-4">Get In Touch</h1>
-          <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
-            Let's discuss your next project or explore opportunities to work together.
+      <div className="p-4 sm:p-6 md:p-8 max-w-4xl mx-auto">
+        <div className="mb-6 sm:mb-8 blur-in" style={{ animationDelay: '0.1s' }}>
+          <h1 className="text-2xl sm:text-3xl font-bold gradient-text mb-4 blur-in-chars">
+            <span className="char">G</span>
+            <span className="char">e</span>
+            <span className="char">t</span>
+            <span className="char"> </span>
+            <span className="char">I</span>
+            <span className="char">n</span>
+            <span className="char"> </span>
+            <span className="char">T</span>
+            <span className="char">o</span>
+            <span className="char">u</span>
+            <span className="char">c</span>
+            <span className="char">h</span>
+          </h1>
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg slide-up-words" style={{ animationDelay: '0.6s' }}>
+            <span className="word">Let's</span>
+            <span className="word">discuss</span>
+            <span className="word">your</span>
+            <span className="word">next</span>
+            <span className="word">project</span>
+            <span className="word">or</span>
+            <span className="word">explore</span>
+            <span className="word">opportunities</span>
+            <span className="word">to</span>
+            <span className="word">work</span>
+            <span className="word">together.</span>
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 mb-8">
           {/* Contact Form */}
-          <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 animate-slide-in-left">
+          <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 blur-in" style={{ animationDelay: '0.2s' }}>
             <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
               <span className="text-primary mr-2">//</span>
               Send Message
             </h2>
 
             {isSubmitted ? (
-              <div className="text-center py-6 sm:py-8 animate-scale-in">
+              <div className="text-center py-6 sm:py-8 blur-in">
                 <CheckCircle className="w-12 sm:w-16 h-12 sm:h-16 text-green-500 mx-auto mb-4 animate-pulse" />
                 <h3 className="text-base sm:text-lg font-semibold mb-2">Message Sent!</h3>
                 <p className="text-muted-foreground text-sm sm:text-base">
@@ -153,7 +176,7 @@ export function ContactContent() {
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
-                  <div className="animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+                  <div className="blur-in" style={{ animationDelay: '0.1s' }}>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
                       Name *
                     </label>
@@ -168,7 +191,7 @@ export function ContactContent() {
                       className="w-full transition-all duration-300 focus:scale-[1.02]"
                     />
                   </div>
-                  <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+                  <div className="blur-in" style={{ animationDelay: '0.2s' }}>
                     <label htmlFor="email" className="block text-sm font-medium mb-2">
                       Email *
                     </label>
@@ -184,7 +207,7 @@ export function ContactContent() {
                     />
                   </div>
                 </div>
-                <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+                <div className="blur-in" style={{ animationDelay: '0.3s' }}>
                   <label htmlFor="subject" className="block text-sm font-medium mb-2">
                     Subject *
                   </label>
@@ -199,7 +222,7 @@ export function ContactContent() {
                     className="w-full transition-all duration-300 focus:scale-[1.02]"
                   />
                 </div>
-                <div className="animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                <div className="blur-in" style={{ animationDelay: '0.4s' }}>
                   <label htmlFor="message" className="block text-sm font-medium mb-2">
                     Message *
                   </label>
@@ -213,7 +236,7 @@ export function ContactContent() {
                     placeholder="Tell me about your project or how I can help..."
                   />
                 </div>
-                <div className="animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+                <div className="blur-in" style={{ animationDelay: '0.5s' }}>
                   <Button 
                     type="submit" 
                     disabled={isSubmitting} 
@@ -237,9 +260,9 @@ export function ContactContent() {
           </div>
 
           {/* Right Column */}
-          <div className="space-y-6 animate-slide-in-right">
+          <div className="space-y-6">
             {/* Contact Details */}
-            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30">
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 blur-in" style={{ animationDelay: '0.3s' }}>
               <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Contact Information
@@ -251,8 +274,8 @@ export function ContactContent() {
                     <a
                       key={info.label}
                       href={info.href}
-                      className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-all duration-300 group animate-fade-in-up"
-                      style={{ animationDelay: `${index * 0.1}s` }}
+                      className="flex items-center space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-all duration-300 group blur-in"
+                      style={{ animationDelay: `${0.1 + index * 0.1}s` }}
                     >
                       <div
                         className={`p-2 rounded-lg transition-all duration-300 group-hover:scale-110 ${
@@ -274,7 +297,7 @@ export function ContactContent() {
             </div>
 
             {/* CV Button */}
-            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 blur-in" style={{ animationDelay: '0.4s' }}>
               <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Resume / CV
@@ -290,7 +313,7 @@ export function ContactContent() {
             </div>
 
             {/* Social Links */}
-            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 blur-in" style={{ animationDelay: '0.5s' }}>
               <h2 className="text-lg sm:text-xl font-semibold mb-4 sm:mb-6 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Connect Online
@@ -304,8 +327,8 @@ export function ContactContent() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`flex flex-col items-center p-3 sm:p-4 rounded-lg border border-transparent hover:border-primary transition-all duration-300 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary animate-scale-in ${social.bgColor} ${social.color}`}
-                      style={{ animationDelay: `${index * 0.1}s` }}
+                      className={`flex flex-col items-center p-3 sm:p-4 rounded-lg border border-transparent hover:border-primary transition-all duration-300 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary blur-in ${social.bgColor} ${social.color}`}
+                      style={{ animationDelay: `${0.1 + index * 0.1}s` }}
                     >
                       <IconComponent className="w-6 h-6 mb-2 transition-all duration-300 group-hover:scale-110" />
                       <span className="text-xs sm:text-sm font-medium transition-colors duration-300 text-center">
@@ -318,7 +341,7 @@ export function ContactContent() {
             </div>
 
             {/* Availability */}
-            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 blur-in" style={{ animationDelay: '0.6s' }}>
               <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Availability
@@ -334,7 +357,7 @@ export function ContactContent() {
             </div>
 
             {/* Work Approach */}
-            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+            <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 blur-in" style={{ animationDelay: '0.7s' }}>
               <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
                 <span className="text-primary mr-2">//</span>
                 Work Approach

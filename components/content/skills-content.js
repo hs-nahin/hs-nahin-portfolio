@@ -65,22 +65,52 @@ export function SkillsContent() {
   return (
     <div className="h-full overflow-y-auto">
       <div className="p-4 sm:p-6 md:p-8 max-w-4xl mx-auto">
-        <div className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold gradient-text mb-4">Technical Skills</h1>
-          <p className="text-muted-foreground text-sm sm:text-base md:text-lg">
-            A hands-on overview of the technologies I've been learning and applying through practical projects. 
-            My focus is on mastering frontend development with modern tools and clean coding practices.
+        <div className="mb-6 sm:mb-8 blur-in" style={{ animationDelay: '0.1s' }}>
+          <h1 className="text-2xl sm:text-3xl font-bold gradient-text mb-4 blur-in-chars">
+            <span className="char">T</span>
+            <span className="char">e</span>
+            <span className="char">c</span>
+            <span className="char">h</span>
+            <span className="char">n</span>
+            <span className="char">i</span>
+            <span className="char">c</span>
+            <span className="char">a</span>
+            <span className="char">l</span>
+            <span className="char"> </span>
+            <span className="char">S</span>
+            <span className="char">k</span>
+            <span className="char">i</span>
+            <span className="char">l</span>
+            <span className="char">l</span>
+            <span className="char">s</span>
+          </h1>
+          <p className="text-muted-foreground text-sm sm:text-base md:text-lg slide-up-words" style={{ animationDelay: '0.8s' }}>
+            <span className="word">A</span>
+            <span className="word">hands-on</span>
+            <span className="word">overview</span>
+            <span className="word">of</span>
+            <span className="word">the</span>
+            <span className="word">technologies</span>
+            <span className="word">I've</span>
+            <span className="word">been</span>
+            <span className="word">learning</span>
+            <span className="word">and</span>
+            <span className="word">applying</span>
+            <span className="word">through</span>
+            <span className="word">practical</span>
+            <span className="word">projects.</span>
           </p>
         </div>
 
         <div className="space-y-4 sm:space-y-6 mb-8">
-          {skillCategories.map((category) => {
+          {skillCategories.map((category, categoryIndex) => {
             const isExpanded = expandedCategories.includes(category.name)
 
             return (
               <div
                 key={category.name}
-                className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30"
+                className="rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 blur-in"
+                style={{ animationDelay: `${0.2 + categoryIndex * 0.1}s` }}
               >
                 <div
                   className="flex items-center justify-between p-4 sm:p-6 cursor-pointer select-none"
@@ -153,7 +183,7 @@ export function SkillsContent() {
         </div>
 
         {/* Summary */}
-        <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 mb-8">
+        <div className="p-4 sm:p-6 rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-all duration-300 hover:scale-[1.02] hover:border-primary/30 mb-8 blur-in" style={{ animationDelay: '0.6s' }}>
           <h2 className="text-lg sm:text-xl font-semibold mb-4 flex items-center">
             <span className="text-primary mr-2">//</span>
             Expertise Summary
