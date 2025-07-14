@@ -23,22 +23,11 @@ export function AboutContent() {
 
             <div className="text-center sm:text-left">
               <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold gradient-text mb-2 blur-in-chars">
-                <span className="char">H</span>
-                <span className="char">a</span>
-                <span className="char">s</span>
-                <span className="char">n</span>
-                <span className="char">a</span>
-                <span className="char">t</span>
-                <span className="char"> </span>
-                <span className="char">S</span>
-                <span className="char">h</span>
-                <span className="char">a</span>
-                <span className="char">h</span>
-                <span className="char">r</span>
-                <span className="char">i</span>
-                <span className="char">y</span>
-                <span className="char">a</span>
-                <span className="char">r</span>
+                {"Hasnat Shahriyar".split('').map((char, i) => (
+                  <span key={i} className="char" style={{ animationDelay: `${i * 0.05}s` }}>
+                    {char}
+                  </span>
+                ))}
               </h1>
               <p
                 className="text-muted-foreground text-sm sm:text-base md:text-lg blur-in-text"
