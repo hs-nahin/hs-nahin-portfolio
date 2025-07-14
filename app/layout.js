@@ -22,6 +22,9 @@ export const metadata = {
   keywords: 'Frontend Developer, React Expert, Next.js, TypeScript, JavaScript, Web Development, UI/UX, Full Stack Developer',
   authors: [{ name: 'Hasnat Shahriyar' }],
   creator: 'Hasnat Shahriyar',
+    icons: {
+    icon: '/images/logo.svg',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
