@@ -23,6 +23,7 @@ export function AboutContent() {
 
             <div className="text-center sm:text-left">
               <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 blur-in-chars">
+              <span className="text-primary">
                 {"Hasnat Shahriyar".split('').map((char, i) => (
                   <span 
                     key={`name-char-${i}-${char}`} 
@@ -35,6 +36,7 @@ export function AboutContent() {
                     {char === ' ' ? '\u00A0' : char}
                   </span>
                 ))}
+              </span>
               </h1>
               
               <p
