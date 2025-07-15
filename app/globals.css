@@ -460,69 +460,6 @@
   animation-delay: 1.5s;
 }
 
-/* Elegant name styling */
-.elegant-name-display {
-  font-family: 'Playfair Display', 'Georgia', serif;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: relative;
-}
-
-.typewriter-name {
-  position: relative;
-  display: inline-block;
-}
-
-.typewriter-cursor {
-  display: inline-block;
-  background: linear-gradient(to bottom, #3b82f6, #8b5cf6, #ec4899);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: typewriter-blink 1.2s infinite;
-  margin-left: 2px;
-  font-weight: 300;
-}
-
-/* Elegant character reveal animation */
-@keyframes elegant-char-reveal {
-  0% {
-    opacity: 0;
-    transform: translateY(20px) scale(0.8) rotateX(-15deg);
-    filter: blur(10px);
-  }
-  50% {
-    opacity: 0.7;
-    transform: translateY(5px) scale(0.95) rotateX(-5deg);
-    filter: blur(3px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1) rotateX(0deg);
-    filter: blur(0px);
-  }
-}
-
-/* Typewriter cursor blink */
-@keyframes typewriter-blink {
-  0%, 50% {
-    opacity: 1;
-  }
-  51%, 100% {
-    opacity: 0;
-  }
-}
-
-.typewriter-char {
-  transition: all 0.3s ease;
-}
-
-.typewriter-char:hover {
-  transform: translateY(-2px) scale(1.05);
-  text-shadow: 0 4px 8px rgba(139, 92, 246, 0.3);
-}
-
 /* Typing animation */
 @keyframes typing {
   from {

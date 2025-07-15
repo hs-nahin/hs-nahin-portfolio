@@ -20,7 +20,6 @@ module.exports = {
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         mono: ['var(--font-mono)', 'Consolas', 'monospace'],
-        serif: ['var(--font-playfair)', 'Georgia', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",

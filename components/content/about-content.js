@@ -22,28 +22,19 @@ export function AboutContent() {
             </div>
 
             <div className="text-center sm:text-left">
-              {/* NAME DISPLAY - FIXED AND GUARANTEED TO SHOW */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 relative">
-                <span className="elegant-name-display bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent font-serif tracking-wide">
-                  <span className="typewriter-name blur-in-chars">
-                    {"Hasnat Shahriyar".split('').map((char, i) => (
-                      <span 
-                        key={`name-char-${i}-${char}`} 
-                        className="char inline-block typewriter-char" 
-                        style={{ 
-                          animationDelay: `${i * 0.08}s`,
-                          opacity: 0,
-                          transform: 'translateY(20px) scale(0.8)',
-                          filter: 'blur(10px)',
-                          animation: `elegant-char-reveal 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards ${i * 0.08}s`
-                        }}
-                      >
-                        {char === ' ' ? '\u00A0' : char}
-                      </span>
-                    ))}
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 blur-in-chars">
+                {"Hasnat Shahriyar".split('').map((char, i) => (
+                  <span 
+                    key={`name-char-${i}-${char}`} 
+                    className="char inline-block" 
+                    style={{ 
+                      animationDelay: `${i * 0.05}s`,
+                      opacity: 0
+                    }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
                   </span>
-                  <span className="typewriter-cursor animate-pulse">|</span>
-                </span>
+                ))}
               </h1>
               
               <p
