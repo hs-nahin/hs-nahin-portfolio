@@ -5,7 +5,5 @@ import { ParticleSystem } from '@/components/ui/particle-system'
 import { PortfolioClient } from '@/components/portfolio-client'
 
 export default function Home() {
-  return (
-    <PortfolioClient />
-  )
+  return <PortfolioClient />
 }

@@ -20,7 +20,12 @@ const contentMap = {
 export function ContentArea({ activeFile, className }) {
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [currentContent, setCurrentContent] = useState(activeFile)
+  const [mounted, setMounted] = useState(false)
   const ContentComponent = contentMap[currentContent] || AboutContent
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (activeFile !== currentContent) {
@@ -36,6 +41,23 @@ export function ContentArea({ activeFile, className }) {
     }
   }, [activeFile, currentContent])
 
+  if (!mounted) {
+    return (
+      <div className={cn('flex-1 flex flex-col bg-background', className)}>
+        <div className="flex items-center justify-between bg-muted/20 border-b border-border">
+          <div className="flex">
+            <div className="flex items-center space-x-2 px-4 py-2 bg-background border-r border-border">
+              <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+              <span className="text-sm font-mono">Loading...</span>
+            </div>
+          </div>
+        </div>
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-muted-foreground">Loading content...</div>
+        </div>
+      </div>
+    )
+  }
   return (
     <div className={cn('flex-1 flex flex-col bg-background', className)}>
       {/* Tab Bar */}

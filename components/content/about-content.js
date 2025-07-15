@@ -26,7 +26,7 @@ export function AboutContent() {
               <span className="text-primary">
                 {"Hasnat Shahriyar".split('').map((char, i) => (
                   <span 
-                    key={`name-char-${i}-${char}`} 
+                    key={`name-char-${i}-${char}-${Math.random()}`} 
                     className="char inline-block" 
                     style={{ 
                       animationDelay: `${i * 0.05}s`,

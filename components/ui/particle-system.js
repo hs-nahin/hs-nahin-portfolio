@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react'
 
 export function ParticleSystem() {
   const [particles, setParticles] = useState([])
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     // Only run on client side
     if (typeof window === 'undefined') return
 
@@ -60,6 +62,8 @@ export function ParticleSystem() {
       window.removeEventListener('resize', handleResize)
     }
   }, [])
+
+  if (!mounted) return null
 
   return (
     <div className="particles-container">

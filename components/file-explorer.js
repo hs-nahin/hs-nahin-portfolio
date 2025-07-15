@@ -66,7 +66,11 @@ const fileStructure = [
 export function FileExplorer({ activeFile, onFileSelect, className }) {
   const [expandedFolders, setExpandedFolders] = useState(["portfolio"]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   // Sync tree expansion with active file
   useEffect(() => {
     if (activeFile === "CodeLink.jsx" || activeFile === "CareerHive.jsx") {
@@ -177,6 +181,18 @@ export function FileExplorer({ activeFile, onFileSelect, className }) {
     });
   };
 
+  if (!mounted) {
+    return (
+      <div className={cn("bg-muted/20 border-r border-border flex flex-col", className)}>
+        <div className="px-4 py-3 border-b border-border bg-muted/30">
+          <h2 className="text-sm font-semibold text-foreground">EXPLORER</h2>
+        </div>
+        <div className="flex-1 overflow-y-auto p-2">
+          <div className="text-muted-foreground text-sm">Loading...</div>
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       {/* Mobile Menu Button */}
